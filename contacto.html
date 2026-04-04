@@ -136,6 +136,30 @@
       from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 0.28; transform: translateY(0); }
     }
+
+    /* ─── MOBILE ≤768px ─────────────────────────────────────── */
+    @media (max-width: 768px) {
+
+      /* Stage: centra en la pantalla completa (nav flota encima) */
+      .contacto-stage {
+        min-height: 100svh;
+        align-items: center;
+        justify-content: center;
+        padding: 0 20px;
+      }
+
+      /* Emails largos no desbordan */
+      .c-link {
+        font-size: 0.82rem;
+        word-break: break-all;
+        letter-spacing: 0.02em;
+      }
+
+      /* Columna central: ancho contenido */
+      .contacto-col {
+        max-width: 100%;
+      }
+    }
   </style>
 </head>
 <body class="page-contacto">

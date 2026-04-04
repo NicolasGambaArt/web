@@ -1,6 +1,8 @@
 /* ============================================================
    drag.js — Sistema drag & drop reutilizable
-   Soporta mouse y touch
+   Soporta mouse y touch.
+   En móvil: tap muestra/oculta overlay de info; tap sobre
+   el texto (con overlay visible) abre el modal de detalle.
    ============================================================ */
 
 (function () {
@@ -11,8 +13,9 @@
   function initDraggable(el) {
     let isDragging = false;
     let startX, startY, origLeft, origTop;
+    let touchStartX = 0, touchStartY = 0;
+    let tapTarget = null;
 
-    // Llevar al frente al hacer click
     function bringToFront() {
       globalZ++;
       el.style.zIndex = globalZ;
@@ -20,7 +23,7 @@
 
     /* ── MOUSE ─────────────────────────────────────────────── */
     el.addEventListener('mousedown', function (e) {
-      if (e.button !== 0) return;         // solo botón izquierdo
+      if (e.button !== 0) return;
       e.preventDefault();
 
       isDragging = true;
@@ -28,9 +31,7 @@
       bringToFront();
 
       const rect = el.getBoundingClientRect();
-      
-      // Bloquear dimensiones exactas para evitar reflows al cambiar left/top
-      el.style.width = rect.width + 'px';
+      el.style.width  = rect.width  + 'px';
       el.style.height = rect.height + 'px';
 
       startX   = e.clientX;
@@ -65,20 +66,21 @@
       e.preventDefault();
       const touch = e.touches[0];
 
+      tapTarget = e.target;         // guardar objetivo del toque
       isDragging = true;
       el.classList.add('dragging');
       bringToFront();
 
       const rect = el.getBoundingClientRect();
-      
-      // Bloquear dimensiones en touch
-      el.style.width = rect.width + 'px';
+      el.style.width  = rect.width  + 'px';
       el.style.height = rect.height + 'px';
 
-      startX   = touch.clientX;
-      startY   = touch.clientY;
-      origLeft = rect.left;
-      origTop  = rect.top;
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      startX      = touch.clientX;
+      startY      = touch.clientY;
+      origLeft    = rect.left;
+      origTop     = rect.top;
 
       document.addEventListener('touchmove', onTouchMove, { passive: false });
       document.addEventListener('touchend',  onTouchEnd);
@@ -96,28 +98,47 @@
       el.style.bottom = 'auto';
     }
 
-    function onTouchEnd() {
+    function onTouchEnd(e) {
+      const touch = e.changedTouches[0];
+      const dx    = touch.clientX - touchStartX;
+      const dy    = touch.clientY - touchStartY;
+      const dist  = Math.sqrt(dx * dx + dy * dy);
+
       isDragging = false;
       el.classList.remove('dragging');
       document.removeEventListener('touchmove', onTouchMove);
       document.removeEventListener('touchend',  onTouchEnd);
+
+      const isTap    = dist < 10;
+      const isInfoArea = tapTarget && tapTarget.closest('.obra-info') !== null;
+
+      if (isTap && el.classList.contains('touch-active') && isInfoArea) {
+        // Tap sobre texto visible → abrir modal
+        if (typeof abrirModal === 'function') {
+          abrirModal(el.id);
+        }
+      } else {
+        // Cualquier interacción (tap o drag) → activar la carta
+        document.querySelectorAll('.obra-flotante.touch-active').forEach(function (other) {
+          if (other !== el) other.classList.remove('touch-active');
+        });
+        el.classList.add('touch-active');
+      }
     }
   }
 
-  /* ── INIT: aplicar a todos los .obra-flotante ─────────────── */
+  /* ── INIT ─────────────────────────────────────────────────── */
   function initAll() {
     document.querySelectorAll('.obra-flotante').forEach(function (el) {
       initDraggable(el);
     });
   }
 
-  // Esperar DOM listo
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAll);
   } else {
     initAll();
   }
 
-  // Exponer por si se necesita reinicializar dinámicamente
   window.DragSystem = { init: initDraggable, initAll: initAll };
 })();

@@ -1,15 +1,14 @@
 /* ============================================================
-   proyectos.js — Carrusel en arco de proyectos
-   Inspirado en yzavoku.com · Scroll / click rotan el arco
-   El proyecto activo (en el tope del arco) se muestra en el
-   fondo y en el texto central. Click en el texto → modal.
+   proyectos.js — Carrusel de proyectos
+   Desktop: arco circular (scroll / click rotan el arco)
+   Mobile ≤768px: tira lineal en la parte inferior
+                  (swipe horizontal / tap en miniatura)
    ============================================================ */
 
 (function () {
   'use strict';
 
-  /* ─── DESCRIPCIONES CORTAS — ESPAÑOL ────────────────────────
-     Extraídas de las tarjetas del home (info-desc).            */
+  /* ─── DESCRIPCIONES CORTAS — ESPAÑOL ──────────────────────── */
   var DESC_CORTA = {
     'obra-inquebrantables':  'Obra interdisciplinar multimedia creada por el colectivo Metanoia junto con la Filarmónica Joven de Colombia. Acompañó en vivo la Sinfonía N.° 2 de Rachmaninov en los principales teatros del país.',
     'obra-ascii':            'Meditación experimental en formato Fulldome que explora los estados de conciencia descritos en el Libro Tibetano de los Muertos. Tránsito sensorial por los 6 Bardos del Budismo Tibetano.',
@@ -37,7 +36,7 @@
     'obra-thaissa':          'Propuesta de video mapping e identidad visual para el lanzamiento musical de Thaissa en el Teatro Libre de Bogotá.',
   };
 
-  /* ─── DESCRIPCIONES CORTAS — ENGLISH ────────────────────── */
+  /* ─── DESCRIPCIONES CORTAS — ENGLISH ──────────────────────── */
   var DESC_CORTA_EN = {
     'obra-inquebrantables':  'An interdisciplinary multimedia work created by the Metanoia collective with the Filarmónica Joven de Colombia. It accompanied live Rachmaninov\'s Symphony No. 2 at the country\'s leading theaters.',
     'obra-ascii':            'Experimental Fulldome meditation exploring the states of consciousness described in the Tibetan Book of the Dead. A sensory transit through the 6 Bardos of Tibetan Buddhism.',
@@ -55,7 +54,7 @@
     'obra-mascara':          'Short film exploring the tensions between cinema and video art. The mask as a sign to reflect on the artist\'s variable identity. Thesis with Distinction, Uniandes. Otto de Greiff Award.',
     'obra-canal':            'Surrealist exercise in which a shadow haunts the protagonist\'s psyche from the white noise of screens. Written and directed by Nicolás Gamba and Isabella Londoño.',
     'obra-homun':            'Stop motion animated short film narrating the emancipation of a hybrid homunculus, half robotic, half biological. A visual essay on disobedience and self-determination.',
-    'obra-confinamiento':    'Domestic confinement is questioned upon encountering simulated infinity in virtuality. A generic 3D house hides sonic dimensions that contrast with COVID-19 isolation.',
+    'obra-confinamiento':    'Domestic confinement is questioned upon encountering simulated infinity in virtuality. A generic 3D-modeled house hides sonic and visual dimensions that contrast with COVID-19 isolation.',
     'obra-espiritu-balanta': 'Documentary short and music video capturing the cultural and everyday life of Timbiquí. Presented at the Teatro Colón de Bogotá. Collaboration with Jugamusic and Nidia Góngora.',
     'obra-postporno':        'Visual identity and illustration for the 4th Bogotá Erotic and Post-Porn Film Festival. Explores technology, desire, and new body narratives through a critical gender approach.',
     'obra-zihita':           'Visual identity design for the EP Aurora by producer Zihita. Translates sacred geometry and Buddhism into an aesthetic of everyday psychedelia and the fractal nature of urban experience.',
@@ -65,7 +64,7 @@
     'obra-thaissa':          'Video mapping and visual identity proposal for the musical launch of Thaissa at the Teatro Libre de Bogotá.',
   };
 
-  /* ─── ORDEN DEL CARRUSEL (mismo orden que el home) ────────── */
+  /* ─── ORDEN DEL CARRUSEL ────────────────────────────────────── */
   var ORDEN = [
     'obra-sigit',           'obra-inquebrantables',  'obra-ascii',
     'obra-zarigueya',       'obra-muerte-viva',      'obra-pimpina',
@@ -80,18 +79,18 @@
   var N = ORDEN.length; // 24
 
   /* ─── ESTADO ──────────────────────────────────────────────── */
-  var rotationAngle  = 0;   // ángulo actual renderizado (radianes)
-  var targetRotation = 0;   // ángulo objetivo para animación
-  var activeIndex    = -1;  // proyecto activo (-1 = no inicializado)
-  var wheelAcc       = 0;   // acumulador de deltaY para trackpad
+  var rotationAngle  = 0;
+  var targetRotation = 0;
+  var activeIndex    = -1;
+  var wheelAcc       = 0;
+  var isMobile       = window.innerWidth <= 768;
 
   /* ─── REFERENCIAS DOM ─────────────────────────────────────── */
   var thumbEls = [];
   var bgImgA, bgImgB, activeBg = 'a';
-  var numEl, titleEl, medioEl, descEl;
+  var numEl, titleEl, medioEl, descEl, hint;
 
   /* ─── HELPERS ─────────────────────────────────────────────── */
-
   function getLang() {
     return localStorage.getItem('ng-lang') || 'es';
   }
@@ -102,62 +101,58 @@
       : (DESC_CORTA[id] || '');
   }
 
-  // Imagen principal del proyecto (evitar vídeos para fondo/thumbnail)
   function getImgSrc(id) {
     var data = PROYECTOS[id];
     if (!data) return '';
     if (data.tipo === 'img') return data.imagen;
-    // Proyecto con vídeo principal: busca primera imagen en imagenes[]
     var imgs = (data.imagenes || []).filter(function (m) { return m.tipo === 'img'; });
     return imgs.length ? imgs[0].src : '';
   }
 
-  // Extrae Medio y Año de la ficha
   function getMedioAnio(id) {
     var data = PROYECTOS[id];
     if (!data || !data.ficha) return '';
     var lang  = getLang();
     var ficha = (lang === 'en' && data.ficha_en) ? data.ficha_en : data.ficha;
     var medio = '', anio = '';
-    var medioKey = lang === 'en' ? 'Medium' : 'Medio';
-    var anioKey  = lang === 'en' ? 'Year'   : 'Año';
     ficha.forEach(function (f) {
-      if (f[0] === medioKey || f[0] === 'Medio' || f[0] === 'Medium') medio = f[1];
-      if (f[0] === anioKey  || f[0] === 'Año'   || f[0] === 'Year')   anio  = f[1];
+      if (f[0] === 'Medio' || f[0] === 'Medium') medio = f[1];
+      if (f[0] === 'Año'   || f[0] === 'Year')   anio  = f[1];
     });
     return medio + (anio ? ' · ' + anio : '');
   }
 
-  // Normaliza ángulo a [-π, π]
   function normalizeAngle(a) {
     while (a >  Math.PI) a -= 2 * Math.PI;
     while (a < -Math.PI) a += 2 * Math.PI;
     return a;
   }
 
-  // Ángulo de pantalla del item i con la rotación actual
   function displayAngle(i) {
     return (2 * Math.PI / N) * i - Math.PI / 2 + rotationAngle;
   }
 
-  /* ─── POSICIONAMIENTO ─────────────────────────────────────── */
-  function placeThumb() {
+  function getHintText() {
+    if (isMobile) {
+      return getLang() === 'en' ? '← SWIPE TO NAVIGATE →' : '← DESLIZA PARA NAVEGAR →';
+    }
+    return getLang() === 'en' ? '↑ SCROLL TO NAVIGATE ↓' : '↑ SCROLL PARA NAVEGAR ↓';
+  }
+
+  /* ─── POSICIONAMIENTO ARC (desktop) ──────────────────────── */
+  function placeThumbArc() {
     var CX = window.innerWidth  / 2;
     var CY = window.innerHeight / 2;
-    // Radio igual en X e Y → círculo perfecto
     var R  = Math.min(window.innerWidth, window.innerHeight) * 0.43;
-    var RX = R;
-    var RY = R;
 
     for (var i = 0; i < N; i++) {
       var ang  = displayAngle(i);
-      var x    = CX + RX * Math.cos(ang);
-      var y    = CY + RY * Math.sin(ang);
+      var x    = CX + R * Math.cos(ang);
+      var y    = CY + R * Math.sin(ang);
 
-      // Distancia angular al tope (-π/2): 0 = activo, π = opuesto
       var dist    = Math.abs(normalizeAngle(ang + Math.PI / 2));
-      var scale   = 0.60 + 0.80 * (1 - dist / Math.PI);   // 0.60 – 1.40
-      var opacity = 0.45 + 0.55 * (1 - dist / Math.PI);   // 0.45 – 1.00
+      var scale   = 0.60 + 0.80 * (1 - dist / Math.PI);
+      var opacity = 0.45 + 0.55 * (1 - dist / Math.PI);
 
       var el = thumbEls[i];
       el.style.left      = x + 'px';
@@ -168,7 +163,42 @@
     }
   }
 
-  // Devuelve el índice del item más cercano al tope del arco
+  /* ─── POSICIONAMIENTO LINEAL (mobile) ────────────────────── */
+  function placeThumbLinear() {
+    var THUMB_W = 44, GAP = 10;
+    var STEP    = THUMB_W + GAP;
+    var CX      = window.innerWidth / 2;
+    var y       = window.innerHeight - 72;  // tira en la parte inferior
+
+    for (var i = 0; i < N; i++) {
+      // Diferencia respecto al índice activo (circular)
+      var diff = i - activeIndex;
+      if (diff >  N / 2) diff -= N;
+      if (diff < -N / 2) diff += N;
+
+      var x    = CX + diff * STEP;
+      var absDiff = Math.abs(diff);
+      var scale   = Math.max(0.45, 1 - absDiff * 0.055);
+      var opacity = Math.max(0.18, 1 - absDiff * 0.11);
+
+      var el = thumbEls[i];
+      el.style.left      = x + 'px';
+      el.style.top       = y + 'px';
+      el.style.transform = 'translate(-50%, -50%) scale(' + scale.toFixed(4) + ')';
+      el.style.opacity   = opacity.toFixed(4);
+      el.style.zIndex    = Math.round(scale * 100);
+    }
+  }
+
+  function placeThumb() {
+    if (isMobile) {
+      placeThumbLinear();
+    } else {
+      placeThumbArc();
+    }
+  }
+
+  /* ─── ÍNDICE ACTIVO ──────────────────────────────────────── */
   function computeActiveIndex() {
     var best = 0, bestDist = Infinity;
     for (var i = 0; i < N; i++) {
@@ -191,7 +221,6 @@
     medioEl.textContent = getMedioAnio(id);
     descEl.textContent  = getDescCorta(id);
 
-    // Crossfade del fondo
     var src = getImgSrc(id);
     if (activeBg === 'a') {
       bgImgB.src           = src;
@@ -205,13 +234,11 @@
       activeBg = 'a';
     }
 
-    // Highlight del thumb activo
     thumbEls.forEach(function (el, i) {
       el.classList.toggle('proy-thumb--active', i === idx);
     });
   }
 
-  /* ─── ACTUALIZAR SOLO TEXTO (al cambiar idioma) ───────────── */
   function refreshText() {
     if (activeIndex < 0) return;
     var id = ORDEN[activeIndex];
@@ -220,17 +247,14 @@
   }
 
   /* ─── ROTACIÓN ────────────────────────────────────────────── */
-
-  // Avanza n pasos (positivo = adelante, negativo = atrás)
   function rotateBy(steps) {
     targetRotation -= steps * (2 * Math.PI / N);
   }
 
-  // Lleva el item idx al tope tomando el camino más corto
   function rotateTo(idx) {
     var curr = computeActiveIndex();
     var diff = ((idx - curr) % N + N) % N;
-    if (diff > N / 2) diff -= N;          // camino más corto
+    if (diff > N / 2) diff -= N;
     targetRotation += -diff * (2 * Math.PI / N);
   }
 
@@ -238,9 +262,9 @@
   function animate() {
     var delta = targetRotation - rotationAngle;
     if (Math.abs(delta) > 0.0005) {
-      rotationAngle += delta * 0.09;     // lerp suave (ease-out)
+      rotationAngle += delta * 0.09;
     } else {
-      rotationAngle = targetRotation;    // snap final exacto
+      rotationAngle = targetRotation;
     }
 
     placeThumb();
@@ -256,9 +280,7 @@
   /* ─── EVENTOS ─────────────────────────────────────────────── */
   function bindEvents() {
 
-    // ── Rueda del ratón / trackpad ──────────────────────────
-    // Si el modal está abierto, no interceptar el scroll para que
-    // el contenido de la ventana de detalle pueda desplazarse.
+    // ── Rueda del ratón / trackpad (desktop) ───────────────
     window.addEventListener('wheel', function (e) {
       var overlay = document.getElementById('modal-overlay');
       if (overlay && overlay.classList.contains('is-open')) return;
@@ -270,9 +292,7 @@
       }
     }, { passive: false });
 
-    // ── Click en miniatura ──────────────────────────────────
-    // Si ya está arriba (activa) → abrir modal
-    // Si no → rotar hasta ponerla arriba
+    // ── Click en miniatura ─────────────────────────────────
     thumbEls.forEach(function (el, i) {
       el.addEventListener('click', function () {
         if (i === computeActiveIndex()) {
@@ -283,7 +303,7 @@
       });
     });
 
-    // ── Click / Enter en info central → abrir modal ─────────
+    // ── Click / Enter en info central → modal ──────────────
     var infoEl = document.getElementById('center-info');
 
     infoEl.addEventListener('click', function () {
@@ -301,36 +321,87 @@
       }
     });
 
-    // ── Swipe táctil vertical ───────────────────────────────
-    var touchStartY = 0;
+    // ── Swipe táctil ──────────────────────────────────────
+    // Desktop: vertical · Mobile: horizontal continuo
+    var touchStartX = 0, touchStartY = 0;
+    var swipeStartRotation = 0;
+    var isSwiping = false;
+    var SWIPE_PX = 54; // píxeles por paso de item (thumb 44 + gap 10)
+
     window.addEventListener('touchstart', function (e) {
+      touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
+      swipeStartRotation = rotationAngle;
+      isSwiping = false;
+    }, { passive: true });
+
+    window.addEventListener('touchmove', function (e) {
+      if (!isMobile) return;
+      var modal = document.getElementById('modal-overlay');
+      if (modal && modal.classList.contains('is-open')) return;
+
+      var dx = e.touches[0].clientX - touchStartX;
+      var dy = e.touches[0].clientY - touchStartY;
+
+      // Determinar dirección dominante al arrancar
+      if (!isSwiping) {
+        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+        if (Math.abs(dx) >= Math.abs(dy)) {
+          isSwiping = true;
+        } else {
+          return; // swipe vertical: ignorar
+        }
+      }
+
+      // Mover el carrusel directamente según el dedo
+      var delta = -(dx / SWIPE_PX) * (2 * Math.PI / N);
+      rotationAngle  = swipeStartRotation + delta;
+      targetRotation = rotationAngle; // sin lerp mientras se arrastra
     }, { passive: true });
 
     window.addEventListener('touchend', function (e) {
+      if (isMobile) {
+        if (isSwiping) {
+          // Snap suave al item más cercano
+          targetRotation = rotationAngle;
+          rotateTo(computeActiveIndex());
+        } else {
+          // Swipe muy corto (tap) → avanzar un paso si hubo algo de movimiento
+          var dx = e.changedTouches[0].clientX - touchStartX;
+          if (Math.abs(dx) > 20) rotateBy(dx < 0 ? 1 : -1);
+        }
+        isSwiping = false;
+        return;
+      }
+      // Desktop: swipe vertical
       var dy = e.changedTouches[0].clientY - touchStartY;
       if (Math.abs(dy) > 35) rotateBy(dy < 0 ? 1 : -1);
     }, { passive: true });
 
     // ── Resize ─────────────────────────────────────────────
-    window.addEventListener('resize', placeThumb);
+    window.addEventListener('resize', function () {
+      isMobile = window.innerWidth <= 768;
+      placeThumb();
+      if (hint) hint.textContent = getHintText();
+    });
 
-    // ── Ocultar hint al primer gesto ────────────────────────
-    var hint = document.getElementById('proy-scroll-hint');
-    function hideHint() { hint.style.opacity = '0'; }
+    // ── Ocultar hint al primer gesto ───────────────────────
+    function hideHint() {
+      if (hint) hint.style.opacity = '0';
+    }
     window.addEventListener('wheel',    hideHint, { once: true });
     window.addEventListener('touchend', hideHint, { once: true, passive: true });
     thumbEls[0] && thumbEls[0].addEventListener('click', hideHint, { once: true });
 
-    // ── Cambio de idioma ────────────────────────────────────
+    // ── Cambio de idioma ───────────────────────────────────
     document.addEventListener('langchange', function () {
       refreshText();
+      if (hint) hint.textContent = getHintText();
     });
   }
 
   /* ─── INICIALIZACIÓN ──────────────────────────────────────── */
   function init() {
-    // Guard: PROYECTOS debe estar definido (cargado por modal.js)
     if (typeof PROYECTOS === 'undefined') {
       console.error('proyectos.js: PROYECTOS no está definido. ¿Cargaste modal.js primero?');
       return;
@@ -342,12 +413,13 @@
     titleEl = document.getElementById('proy-titulo');
     medioEl = document.getElementById('proy-medio');
     descEl  = document.getElementById('proy-desc');
+    hint    = document.getElementById('proy-scroll-hint');
 
     var arc = document.getElementById('arc-container');
 
-    // Crear elementos de miniatura
+    // Crear miniaturas
     ORDEN.forEach(function (id, i) {
-      var el  = document.createElement('div');
+      var el = document.createElement('div');
       el.className   = 'proy-thumb';
       el.dataset.idx = i;
       el.setAttribute('role', 'button');
@@ -364,17 +436,17 @@
       thumbEls.push(el);
     });
 
-    // Estado inicial: item 0 al tope sin animación
-    bgImgA.src = getImgSrc(ORDEN[0]);
+    // Estado inicial
+    bgImgA.src           = getImgSrc(ORDEN[0]);
     bgImgA.style.opacity = '1';
     bgImgB.style.opacity = '0';
 
     placeThumb();
-    updateActive(0);   // fuerza la primera actualización
-    // updateActive devuelve sin hacer nada si activeIndex ya = 0,
-    // así que lo forzamos manualmente:
     activeIndex = -1;
     updateActive(0);
+
+    // Hint adaptado a plataforma
+    if (hint) hint.textContent = getHintText();
 
     bindEvents();
     requestAnimationFrame(animate);

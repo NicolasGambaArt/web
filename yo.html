@@ -285,6 +285,88 @@
 
     .yo-cv-link:hover { opacity: 0.35; }
 
+    /* ─── MOBILE ≤768px ─────────────────────────────────────── */
+    @media (max-width: 768px) {
+
+      /* Padding: nav sigue a la izquierda, dejamos espacio */
+      .yo-wrap {
+        padding: 20px 16px 60px 158px;
+        max-width: 100%;
+      }
+
+      /* Header alineado a la derecha (igual que desktop) */
+      header {
+        justify-content: flex-end;
+        margin-bottom: 36px;
+      }
+
+      .yo-header-inner {
+        text-align: right;
+        max-width: 100%;
+      }
+
+      .yo-top {
+        text-align: right;
+      }
+
+      .yo-nombre {
+        font-size: clamp(1.8rem, 8vw, 2.8rem);
+      }
+
+      .yo-contact {
+        justify-content: center;
+      }
+
+      /* Secciones: apila label → divider horizontal → contenido */
+      .yo-section {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .yo-sec-rule {
+        width: 100%;
+        height: 1px;
+        min-height: unset;
+        align-self: auto;
+        margin: 6px 0 12px;
+      }
+
+      .yo-sec-label {
+        padding-top: 0;
+        margin-bottom: 0;
+      }
+
+      /* Año más compacto en mobile */
+      .yo-year {
+        min-width: 52px;
+        padding-right: 10px;
+        font-size: 11px;
+      }
+
+      /* Textos más pequeños */
+      .yo-row-title {
+        font-size: 0.85rem;
+      }
+
+      .yo-row-sub {
+        font-size: 10px;
+      }
+
+      .yo-perfil-text {
+        font-size: 0.88rem;
+        line-height: 1.75;
+        max-width: 100%;
+      }
+
+      .yo-tag-row {
+        font-size: 11px;
+      }
+
+      .yo-roles {
+        font-size: 11px;
+      }
+    }
+
   </style>
 </head>
 <body class="page-yo">

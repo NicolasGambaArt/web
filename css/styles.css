@@ -894,3 +894,281 @@ body.page-proyectos .lang-btn:hover {
 body.page-proyectos #footer {
   color: rgba(255, 255, 255, 0.28);
 }
+
+/* ============================================================
+   BOTÓN HAMBURGER — nunca visible (no se usa)
+   ============================================================ */
+#nav-hamburger {
+  display: none !important;
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE ≤768px
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+  /* ─── NAV: mismas cajitas, escala reducida ───────────────── */
+  #nav {
+    left: 10px;
+    top: 8px;
+  }
+
+  /* Logo más compacto, subtítulo visible */
+  .nav-logo {
+    padding: 3px 6px;
+    margin-bottom: 5px;
+  }
+
+  .nav-logo .logo-name {
+    font-size: 0.8rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* Subtítulo visible en mobile (antes oculto) */
+  .nav-logo .logo-sub {
+    display: block;
+    font-size: 7px;
+    letter-spacing: 0.01em;
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+
+  /* Links: misma cajita, fuente menor */
+  .nav-link {
+    font-size: 0.68rem;
+    padding: 1px 5px;
+    line-height: 1.35;
+    letter-spacing: -0.03em;
+  }
+
+  /* ─── LANG SELECTOR ─────────────────────────────────────── */
+  #lang-selector {
+    bottom: 12px;
+    left: 10px;
+  }
+
+  .lang-btn {
+    font-size: 0.65rem;
+    padding: 1px 6px;
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────────── */
+  #footer {
+    bottom: 10px;
+    right: 12px;
+  }
+
+  #footer span {
+    font-size: 8px;
+    letter-spacing: 0.12em;
+  }
+
+  /* ─── HOME: canvas full-screen (nav flota encima a la izq) ─ */
+  body.page-home {
+    background-attachment: scroll; /* fix iOS Safari */
+  }
+
+  #canvas {
+    inset: 0;
+  }
+
+  /* Obras más pequeñas */
+  .layout-square.obra-flotante    { max-width: 200px; }
+  .layout-portrait.obra-flotante  { max-width: 155px; }
+  .layout-landscape.obra-flotante { max-width: 240px; }
+
+  /* Info visible al tocar (touch-active) */
+  .obra-flotante.touch-active img,
+  .obra-flotante.touch-active video {
+    filter: grayscale(100%) blur(8px);
+    opacity: 0.3;
+  }
+
+  .obra-flotante.touch-active .obra-info {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .obra-flotante.touch-active .obra-info-inner {
+    cursor: pointer;
+  }
+
+  /* ─── OVERLAY INFO: izquierda, compacto, scrollable ─────── */
+
+  /* Unificar todas las variantes de layout a izquierda-arriba */
+  .layout-square .obra-info,
+  .layout-portrait .obra-info,
+  .layout-landscape .obra-info,
+  .obra-info {
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 8px 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .layout-square .obra-info-inner,
+  .layout-portrait .obra-info-inner,
+  .layout-landscape .obra-info-inner,
+  .obra-info-inner {
+    text-align: left;
+    width: 100%;
+  }
+
+  /* Título más compacto */
+  .obra-info .info-title,
+  .layout-portrait .info-title {
+    font-size: 0.7rem !important;
+    line-height: 1.2;
+    margin-bottom: 5px;
+    letter-spacing: -0.01em;
+  }
+
+  /* Meta (técnica · año) */
+  .obra-info .info-meta {
+    font-size: 0.58rem;
+    margin-bottom: 6px;
+    opacity: 0.85;
+  }
+
+  /* Descripción completa, sin truncar */
+  .obra-info .info-desc {
+    font-size: 0.6rem;
+    line-height: 1.55;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  /* Durante drag, no mostrar overlay aunque haya touch-active */
+  .obra-flotante.dragging img,
+  .obra-flotante.dragging video {
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  .obra-flotante.dragging .obra-info {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* ─── PROYECTOS: textos izquierda, compactos ────────────── */
+  #center-info {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    width: 92vw;
+    max-width: 92vw;
+    padding: 0 12px;
+  }
+
+  #proy-numero {
+    text-align: left;
+  }
+
+  #proy-titulo {
+    font-size: clamp(1.2rem, 5vw, 1.9rem);
+    text-align: left;
+  }
+
+  #proy-medio {
+    text-align: left;
+    font-size: 11px;
+  }
+
+  #proy-desc {
+    text-align: left;
+    max-width: 100%;
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+
+  .proy-cta {
+    display: block;
+    text-align: left;
+  }
+
+  /* Miniaturas en modo lineal */
+  .proy-thumb {
+    width: 44px;
+    height: 55px;
+  }
+
+  /* Hint encima de la tira de miniaturas */
+  #proy-scroll-hint {
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* ─── MODAL ─────────────────────────────────────────────── */
+  #modal-close {
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.4rem;
+  }
+
+  #modal-lang-selector {
+    bottom: 16px;
+    left: 16px;
+  }
+
+  #modal-hero {
+    height: 42vh;
+    min-height: 220px;
+  }
+
+  .modal-arrow {
+    font-size: 2.5rem;
+    padding: 8px 12px;
+  }
+
+  #modal-body {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px 20px 60px;
+  }
+
+  #modal-right {
+    position: static;
+    top: auto;
+    border-top: 2px solid var(--ink);
+    padding-top: 32px;
+  }
+
+  #modal-titulo {
+    font-size: clamp(1.5rem, 7vw, 2.4rem);
+  }
+
+  #modal-subtitulo {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    margin-bottom: 36px;
+  }
+
+  .modal-desc-p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+
+  .modal-label {
+    font-size: 9px;
+  }
+
+  #modal-ficha dd {
+    font-size: 11px;
+  }
+
+  #modal-gallery {
+    padding: 40px 20px;
+  }
+
+  .modal-thumb {
+    width: 90px;
+    height: 90px;
+  }
+
+}

@@ -1074,6 +1074,7 @@ function abrirModal(obraId) {
   currentObraId = obraId;
 
   const overlay = document.getElementById('modal-overlay');
+  const wasAlreadyOpen = overlay.classList.contains('is-open');
 
   /* Imágenes */
   currentImages   = data.imagenes || [{ src: data.imagen, tipo: data.tipo || 'img' }];
@@ -1141,11 +1142,18 @@ function abrirModal(obraId) {
   overlay.scrollTop = 0;
   document.body.classList.add('modal-open');
   document.getElementById('modal-close').focus();
+
+  /* HISTORY API: Push state para que el botón "Atrás" cierre el modal */
+  if (!wasAlreadyOpen) {
+    history.pushState({ modalOpen: true }, "");
+  }
 }
 
 /* ─── CERRAR MODAL ────────────────────────────────────────── */
-function cerrarModal() {
+function cerrarModal(fromPopState) {
   const overlay = document.getElementById('modal-overlay');
+  if (!overlay.classList.contains('is-open')) return;
+  
   overlay.classList.remove('is-open');
   overlay.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('modal-open');
@@ -1154,6 +1162,11 @@ function cerrarModal() {
   /* Pausar video si está activo */
   const video = document.getElementById('modal-hero-video');
   if (video) { video.pause(); video.src = ''; }
+
+  /* Si cerramos usando el botón X o Esc, devolvemos el history atrás programáticamente */
+  if (fromPopState !== true) {
+    history.back();
+  }
 }
 
 /* ─── INIT ────────────────────────────────────────────────── */
@@ -1162,11 +1175,19 @@ document.addEventListener('DOMContentLoaded', function () {
   crearModal();
 
   /* Botón cerrar */
-  document.getElementById('modal-close').addEventListener('click', cerrarModal);
+  document.getElementById('modal-close').addEventListener('click', function() { cerrarModal(false); });
 
   /* Tecla Escape */
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') cerrarModal();
+    if (e.key === 'Escape') cerrarModal(false);
+  });
+
+  /* Popstate (botón Atrás del navegador) */
+  window.addEventListener('popstate', function (e) {
+    const overlay = document.getElementById('modal-overlay');
+    if (overlay && overlay.classList.contains('is-open')) {
+      cerrarModal(true);
+    }
   });
 
   /* Flechas de galería */
