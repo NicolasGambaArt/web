@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YO — NICOLÁS GAMBA</title>
+  <meta name="description" content="CV artístico — Nicolás Gamba. Artista en medios expandidos, gestor cultural y realizador audiovisual, Bogotá." />
+  <meta name="author" content="Nicolás Gamba" />
+  <meta name="theme-color" content="#F5F2EB" />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="profile" />
+  <meta property="og:title"       content="CV — Nicolás Gamba" />
+  <meta property="og:description" content="CV artístico de Nicolás Gamba. Artista en medios expandidos, gestor cultural y realizador audiovisual, Bogotá." />
+  <meta property="og:locale"      content="es_CO" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary" />
+  <meta name="twitter:title"       content="CV — Nicolás Gamba" />
+  <meta name="twitter:description" content="CV artístico de Nicolás Gamba. Artista en medios expandidos, gestor cultural y realizador audiovisual, Bogotá." />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    /* ─── PAGE ─────────────────────────────────────────────── */
+    body.page-yo,
+    body.page-yo #page-wrapper {
+      overflow-y: auto;
+      overflow-x: hidden;
+      background-color: #F5F2EB;
+    }
+
+    /* ─── WRAPPER ───────────────────────────────────────────── */
+    .yo-wrap {
+      padding: 100px 80px 160px 320px;
+      max-width: 1400px;
+    }
+
+    /* ─── HEADER ────────────────────────────────────────────── */
+    header {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 64px;
+    }
+
+    .yo-header-inner {
+      text-align: right;
+      max-width: 520px;
+    }
+
+    .yo-top {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.45;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .yo-nombre {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(2.2rem, 3.5vw, 3.8rem);
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 0.92;
+      color: var(--ink);
+      margin: 0 0 24px 0;
+    }
+
+    .yo-roles {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.6;
+      margin-bottom: 16px;
+      line-height: 1.9;
+    }
+
+    .yo-contact {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 0;
+      justify-content: flex-end;
+    }
+
+    .yo-contact a {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 120ms;
+    }
+
+    .yo-contact a:hover { opacity: 0.55; }
+
+    .yo-header-rule {
+      border: none;
+      border-top: 1px solid rgba(17,17,17,0.12);
+      margin: 0 0 64px 0;
+    }
+
+    /* ─── SECTIONS ──────────────────────────────────────────── */
+    .yo-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+    }
+
+    /* Each section: label rail + content */
+    .yo-section {
+      display: grid;
+      grid-template-columns: 108px 1px 1fr;
+      gap: 0 32px;
+      align-items: start;
+      /* scroll reveal */
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .yo-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Label */
+    .yo-sec-label {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 1;
+      padding-top: 4px;
+      line-height: 1.5;
+    }
+
+    /* Vertical divider */
+    .yo-sec-rule {
+      background: var(--accent);
+      opacity: 0.4;
+      width: 1px;
+      align-self: stretch;
+      min-height: 100%;
+    }
+
+    /* Content area */
+    .yo-sec-body {
+      padding-left: 0;
+    }
+
+    /* ─── ROWS (year + text) ────────────────────────────────── */
+    .yo-row {
+      display: flex;
+      gap: 0;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(17,17,17,0.05);
+    }
+
+    .yo-row:first-child { border-top: 1px solid rgba(17,17,17,0.05); }
+
+    .yo-year {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      color: var(--ink);
+      opacity: 0.55;
+      min-width: 96px;
+      flex-shrink: 0;
+      padding-right: 24px;
+      padding-top: 2px;
+      letter-spacing: 0.04em;
+    }
+
+    .yo-row-content {}
+
+    .yo-row-title {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .yo-row-title em {
+      font-style: italic;
+    }
+
+    .yo-row-sub {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.6;
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ─── PERFIL (no year col) ──────────────────────────────── */
+    .yo-perfil-text {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--ink);
+      opacity: 0.85;
+      max-width: 640px;
+    }
+
+    /* ─── TAGS (habilidades, software) ─────────────────────── */
+    .yo-tags {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .yo-tag-row {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.85;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(17,17,17,0.05);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .yo-tag-row:first-child { border-top: 1px solid rgba(17,17,17,0.05); }
+
+    .yo-tag-dot {
+      color: var(--accent);
+      opacity: 0.7;
+      font-size: 8px;
+      flex-shrink: 0;
+    }
+
+    /* ─── IDIOMAS ───────────────────────────────────────────── */
+    .yo-lang-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(17,17,17,0.05);
+      max-width: 260px;
+    }
+
+    .yo-lang-row:first-child { border-top: 1px solid rgba(17,17,17,0.05); }
+
+    .yo-lang-name {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--ink);
+    }
+
+    .yo-lang-level {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.55;
+    }
+
+    /* ─── CV DOWNLOAD ───────────────────────────────────────── */
+    .yo-cv-link {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 2px;
+      transition: opacity 120ms;
+      display: inline-block;
+      margin-top: 64px;
+      opacity: 0.7;
+    }
+
+    .yo-cv-link:hover { opacity: 0.35; }
+
+  </style>
+</head>
+<body class="page-yo">
+<div id="page-wrapper">
+
+  <!-- ══ NAVEGACIÓN LATERAL ══════════════════════════════════ -->
+  <nav id="nav" role="navigation" aria-label="Navegación principal">
+    <a href="index.html" class="nav-box nav-logo brutalist-border">
+      <span class="logo-name">NICOLÁS GAMBA</span>
+      <span class="logo-sub" data-i18n="logo_sub">Artista en medios expandidos y gestor cultural</span>
+    </a>
+    <a class="nav-box nav-link brutalist-border active" href="yo.html"        data-page="yo"        data-i18n="nav_yo">YO</a>
+    <a class="nav-box nav-link brutalist-border"        href="proyectos.html" data-page="proyectos" data-i18n="nav_proyectos">PROYECTOS</a>
+    <a class="nav-box nav-link brutalist-border soon"                         data-page="obra"      data-i18n="nav_obra">OBRA (PRÓXIMAMENTE)</a>
+    <a class="nav-box nav-link brutalist-border"        href="contacto.html"  data-page="contacto"  data-i18n="nav_contacto">CONTACTO</a>
+
+  </nav>
+
+  <!-- ══ SELECTOR DE IDIOMA ══════════════════════════════════ -->
+  <div id="lang-selector">
+    <div class="lang-box brutalist-border">
+      <button class="lang-btn active" data-lang="es">ES</button>
+      <button class="lang-btn"        data-lang="en">EN</button>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══════════════════════════════════════════════ -->
+  <footer id="footer">
+    <span data-i18n="footer">© Nicolás Gamba · Bogotá</span>
+  </footer>
+
+  <!-- ══ CONTENIDO ════════════════════════════════════════════ -->
+  <main class="yo-wrap">
+
+    <!-- HEADER -->
+    <header>
+      <div class="yo-header-inner">
+        <span class="yo-top" data-i18n="yo_header_top">Bogotá, Colombia — Artista</span>
+        <h1 class="yo-nombre">Nicolás<br>Gamba</h1>
+        <p class="yo-roles">
+          <span data-i18n="yo_role_1">Artista en medios expandidos</span><br><span data-i18n="yo_role_2">Gestor cultural</span><br><span data-i18n="yo_role_3">Realizador audiovisual y multimedia</span>
+        </p>
+        <div class="yo-contact">
+          <a href="https://www.instagram.com/ni_codemus/" target="_blank" rel="noopener noreferrer">@ni_codemus</a>
+          <a href="mailto:nicolasgamba63@gmail.com">nicolasgamba63@gmail.com</a>
+        </div>
+      </div>
+    </header>
+    <hr class="yo-header-rule" />
+
+    <!-- SECTIONS -->
+    <div class="yo-sections">
+
+      <!-- PERFIL -->
+      <div class="yo-section">
+        <span class="yo-sec-label" data-i18n="yo_sec_perfil">Perfil</span>
+        <div class="yo-sec-rule"></div>
+        <div class="yo-sec-body">
+          <p class="yo-perfil-text"
+             data-es="Artista colombiano con práctica interdisciplinaria que atraviesa los medios expandidos, la gestión cultural y la realización audiovisual. Su trabajo parte de una pregunta sostenida sobre el diálogo intercultural: cómo las distintas formas de conocer el mundo —lo ancestral y lo contemporáneo, lo analógico y lo digital, lo urbano y lo territorial— pueden encontrarse, tensionarse y generar nuevos tejidos de sentido. Su experiencia trabajando con comunidades indígenas y afro del territorio colombiano es un eje fundamental de su práctica."
+             data-en="Colombian artist with an interdisciplinary practice spanning expanded media, cultural management, and audiovisual filmmaking. His work departs from a sustained question about intercultural dialogue: how different ways of knowing the world — the ancestral and the contemporary, the analog and the digital, the urban and the territorial — can encounter one another, create tension, and generate new webs of meaning. His experience working with indigenous and Afro-Colombian communities across Colombian territory is a fundamental axis of his practice.">
+            Artista colombiano con práctica interdisciplinaria que atraviesa los medios expandidos, la gestión cultural y la realización audiovisual. Su trabajo parte de una pregunta sostenida sobre el diálogo intercultural: cómo las distintas formas de conocer el mundo —lo ancestral y lo contemporáneo, lo analógico y lo digital, lo urbano y lo territorial— pueden encontrarse, tensionarse y generar nuevos tejidos de sentido. Su experiencia trabajando con comunidades indígenas y afro del territorio colombiano es un eje fundamental de su práctica.
+          </p>
+        </div>
+      </div>
+
+      <!-- EDUCACIÓN -->
+      <div class="yo-section">
+        <span class="yo-sec-label" data-i18n="yo_sec_educacion">Educación</span>
+        <div class="yo-sec-rule"></div>
+        <div class="yo-sec-body">
+
+          <div class="yo-row">
+            <span class="yo-year">2014–2018</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title" data-i18n="yo_edu_1_title">Maestro en Arte con énfasis en medios electrónicos y artes del tiempo</p>
+              <span class="yo-row-sub">Universidad de los Andes</span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2016–2018</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title" data-i18n="yo_edu_2_title">Opción en Cine, Video y Animación</p>
+              <span class="yo-row-sub">Universidad de los Andes</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- EXPOSICIONES INDIVIDUALES -->
+      <div class="yo-section">
+        <span class="yo-sec-label" data-i18n="yo_sec_exp_ind">Exposiciones individuales</span>
+        <div class="yo-sec-rule"></div>
+        <div class="yo-sec-body">
+
+          <div class="yo-row">
+            <span class="yo-year">2025</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title"><em>Muerte Viva</em></p>
+              <span class="yo-row-sub">Mont, Barcelona</span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2019</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title"><em>Máscara</em></p>
+              <span class="yo-row-sub">MAC — Museo de Arte Contemporáneo de Bogotá</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- EXPOSICIONES COLECTIVAS -->
+      <div class="yo-section">
+        <span class="yo-sec-label" data-i18n="yo_sec_exp_col">Exposiciones colectivas</span>
+        <div class="yo-sec-rule"></div>
+        <div class="yo-sec-body">
+
+          <div class="yo-row">
+            <span class="yo-year">2024</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title"><em>Carnaval Digital</em></p>
+              <span class="yo-row-sub">Soul Room</span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2020</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title"><em>Confinamiento Expandido</em></p>
+              <span class="yo-row-sub">Premio X-PUA — Galería Espacio Alterno</span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2023</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title"><em>Feria del Millón</em></p>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2018</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title"><em>Monolito</em></p>
+              <span class="yo-row-sub">Salón Séneca</span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2024 · 2025</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title"><em>El Abrazo</em></p>
+              <span class="yo-row-sub" data-es="Instalación audiovisual — Ebra Colectivo" data-en="Audiovisual installation — Ebra Colectivo">Instalación audiovisual — Ebra Colectivo</span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2024</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title"><em>Anómala</em></p>
+              <span class="yo-row-sub" data-es="Instalación audiovisual — Ebra Colectivo" data-en="Audiovisual installation — Ebra Colectivo">Instalación audiovisual — Ebra Colectivo</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PREMIOS Y DISTINCIONES -->
+      <div class="yo-section">
+        <span class="yo-sec-label" data-i18n="yo_sec_premios">Premios y distinciones</span>
+        <div class="yo-sec-rule"></div>
+        <div class="yo-sec-body">
+
+          <div class="yo-row">
+            <span class="yo-year">2018</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title" data-i18n="yo_award_1_title">Tesis Meritoria</p>
+              <span class="yo-row-sub"><em>Máscara</em> — Universidad de los Andes</span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2018</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title">Premio Otto de Greiff</p>
+              <span class="yo-row-sub"><em>Máscara</em></span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2020</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title">Premio X-PUA</p>
+              <span class="yo-row-sub"><em>Confinamiento Expandido</em> — Galería Espacio Alterno</span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2018</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title">Salón Séneca</p>
+              <span class="yo-row-sub"><em>Monolito</em></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- EXPERIENCIA -->
+      <div class="yo-section">
+        <span class="yo-sec-label" data-i18n="yo_sec_exp">Experiencia</span>
+        <div class="yo-sec-rule"></div>
+        <div class="yo-sec-body">
+
+          <div class="yo-row">
+            <span class="yo-year">2024–</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title">IDARTES – Mundos Digitales</p>
+              <span class="yo-row-sub" data-i18n="yo_job_idartes_role">Artista Visual, Modelador 3D</span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2021–</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title">Colectivo Ebra</p>
+              <span class="yo-row-sub" data-i18n="yo_job_ebra_role">Productor, Director Creativo</span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2020–</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title">SIGIT — Universidad de los Andes</p>
+              <span class="yo-row-sub" data-i18n="yo_job_sigit_role">Investigador, Realizador Audiovisual</span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2024</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title">Filarmónica Joven de Colombia</p>
+              <span class="yo-row-sub" data-i18n="yo_job_filarmonica_role">VJ, Artista Visual, Animador</span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2018–2022</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title">Portal Media</p>
+              <span class="yo-row-sub" data-i18n="yo_job_portal_role">Director Creativo, Editor</span>
+            </div>
+          </div>
+
+          <div class="yo-row">
+            <span class="yo-year">2019</span>
+            <div class="yo-row-content">
+              <p class="yo-row-title">Timbo Studio</p>
+              <span class="yo-row-sub" data-i18n="yo_job_timbo_role">Editor, Animador</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- HABILIDADES -->
+      <div class="yo-section">
+        <span class="yo-sec-label" data-i18n="yo_sec_habilidades">Habilidades</span>
+        <div class="yo-sec-rule"></div>
+        <div class="yo-sec-body">
+          <div class="yo-tags">
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> <span data-i18n="yo_skill_1">Dirección creativa</span></div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> <span data-i18n="yo_skill_2">Gestión cultural con enfoque comunitario</span></div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> <span data-i18n="yo_skill_3">Dirección y producción audiovisual</span></div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> <span data-i18n="yo_skill_4">Postproducción</span></div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> <span data-i18n="yo_skill_5">Video mapping</span></div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> <span data-i18n="yo_skill_6">Animación 3D</span></div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> <span data-i18n="yo_skill_7">Diseño generativo</span></div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> <span data-i18n="yo_skill_8">Performance en tiempo real</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOFTWARE -->
+      <div class="yo-section">
+        <span class="yo-sec-label" data-i18n="yo_sec_software">Software</span>
+        <div class="yo-sec-rule"></div>
+        <div class="yo-sec-body">
+          <div class="yo-tags">
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> Adobe Premiere Pro</div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> Adobe After Effects</div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> Photoshop</div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> Blender</div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> TouchDesigner</div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> Resolume</div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> Unreal Engine 5</div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> Claude Code · Antigravity</div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> Affinity · Sketchbook</div>
+            <div class="yo-tag-row"><span class="yo-tag-dot">·</span> IA generativa — imagen, video y audio</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IDIOMAS -->
+      <div class="yo-section">
+        <span class="yo-sec-label" data-i18n="yo_sec_idiomas">Idiomas</span>
+        <div class="yo-sec-rule"></div>
+        <div class="yo-sec-body">
+          <div class="yo-lang-row">
+            <span class="yo-lang-name" data-i18n="yo_lang_1_name">Español</span>
+            <span class="yo-lang-level" data-i18n="yo_lang_1_level">Nativo</span>
+          </div>
+          <div class="yo-lang-row">
+            <span class="yo-lang-name" data-i18n="yo_lang_2_name">Inglés</span>
+            <span class="yo-lang-level" data-i18n="yo_lang_2_level">Profesional</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- .yo-sections -->
+
+    <!-- CV DOWNLOAD -->
+    <a href="../Documentos/CV/CV Nicolás Gamba 2024.pdf"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="yo-cv-link">
+      <span data-i18n="yo_cv_link">Descargar CV completo →</span>
+    </a>
+
+  </main>
+
+</div><!-- #page-wrapper -->
+
+<script src="js/main.js"></script>
+<script>
+  /* ── Scroll reveal con IntersectionObserver ── */
+  const sections = document.querySelectorAll('.yo-section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  sections.forEach((s, i) => {
+    s.style.transitionDelay = `${i * 0.04}s`;
+    observer.observe(s);
+  });
+</script>
+</body>
+</html>

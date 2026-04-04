@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PROYECTOS | NICOLÁS GAMBA</title>
+  <meta name="description" content="Proyectos de Nicolás Gamba — artista visual, realizador audiovisual y gestor cultural colombiano." />
+  <meta name="author" content="Nicolás Gamba" />
+  <meta name="theme-color" content="#000000" />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Proyectos — Nicolás Gamba" />
+  <meta property="og:description" content="Proyectos de Nicolás Gamba — artista visual, realizador audiovisual y gestor cultural colombiano." />
+  <meta property="og:locale"      content="es_CO" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Proyectos — Nicolás Gamba" />
+  <meta name="twitter:description" content="Proyectos de Nicolás Gamba — artista visual, realizador audiovisual y gestor cultural colombiano." />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="page-proyectos">
+
+<div id="page-wrapper">
+
+  <!-- ══ FONDO (dos capas para crossfade) ═══════════════════════ -->
+  <div id="proy-bg">
+    <img id="bg-img-a" src="" alt="" />
+    <img id="bg-img-b" src="" alt="" />
+    <div id="proy-bg-overlay"></div>
+  </div>
+
+  <!-- ══ NAVEGACIÓN LATERAL ════════════════════════════════════════ -->
+  <nav id="nav" role="navigation" aria-label="Navegación principal">
+    <a href="index.html" class="nav-box nav-logo brutalist-border">
+      <span class="logo-name">NICOLÁS GAMBA</span>
+      <span class="logo-sub" data-i18n="logo_sub">Artista en medios expandidos y gestor cultural</span>
+    </a>
+    <a id="nav-yo"        class="nav-box nav-link brutalist-border" href="yo.html"        data-page="yo"        data-i18n="nav_yo">YO</a>
+    <a id="nav-proyectos" class="nav-box nav-link brutalist-border nav-active" href="proyectos.html" data-page="proyectos" data-i18n="nav_proyectos">PROYECTOS</a>
+    <a id="nav-obra"      class="nav-box nav-link brutalist-border soon"                  data-page="obra"      data-i18n="nav_obra">OBRA (PRÓXIMAMENTE)</a>
+    <a id="nav-contacto"  class="nav-box nav-link brutalist-border" href="contacto.html"  data-page="contacto"  data-i18n="nav_contacto">CONTACTO</a>
+  </nav>
+
+  <!-- ══ SELECTOR DE IDIOMA ════════════════════════════════════════ -->
+  <div id="lang-selector">
+    <div class="lang-box brutalist-border">
+      <button class="lang-btn active" data-lang="es" id="btn-lang-es">ES</button>
+      <button class="lang-btn"        data-lang="en" id="btn-lang-en">EN</button>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════════ -->
+  <footer id="footer">
+    <span data-i18n="footer">© Nicolás Gamba · Bogotá</span>
+  </footer>
+
+  <!-- ══ CARRUSEL EN ARCO ══════════════════════════════════════════
+       Las miniaturas se posicionan por JS en una elipse
+       que bordea el viewport. El scroll rota el arco.           -->
+  <div id="arc-container" aria-label="Carrusel de proyectos"></div>
+
+  <!-- ══ INFO CENTRAL ══════════════════════════════════════════════
+       Muestra nombre, medio y descripción del proyecto activo.
+       Click en cualquier parte abre la ventana de detalle.      -->
+  <div id="center-info" role="button" tabindex="0" aria-label="Ver detalle del proyecto activo">
+    <p id="proy-numero"></p>
+    <h2 id="proy-titulo"></h2>
+    <p id="proy-medio"></p>
+    <p id="proy-desc"></p>
+    <span class="proy-cta" data-i18n="proy_cta">VER PROYECTO →</span>
+  </div>
+
+  <!-- ══ HINT DE NAVEGACIÓN ════════════════════════════════════════ -->
+  <div id="proy-scroll-hint" aria-hidden="true" data-i18n="proy_hint">↑ SCROLL PARA NAVEGAR ↓</div>
+
+</div><!-- #page-wrapper -->
+
+<script src="js/modal.js"></script>
+<script src="js/main.js"></script>
+<script src="js/proyectos.js"></script>
+
+</body>
+</html>

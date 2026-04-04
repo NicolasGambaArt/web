@@ -1,0 +1,896 @@
+/* ============================================================
+   NICOLÁS GAMBA — PORTAFOLIO
+   styles.css · Fiel al diseño de Google Stitch
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Karla:ital,wght@0,400;0,600;1,400&display=swap');
+
+@font-face {
+  font-family: 'TT Commons';
+  src: url('../fonts/TT Commons Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TT Commons';
+  src: url('../fonts/TT Commons DemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TT Commons';
+  src: url('../fonts/TT Commons Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TT Commons';
+  src: url('../fonts/TT Commons Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── VARIABLES ───────────────────────────────────────────── */
+:root {
+  --bg:      #F5F2EB;   /* crema — fondo */
+  --ink:     #111111;   /* negro — textos y bordes */
+  --white:   #FFFFFF;   /* blanco — cajitas nav */
+  --accent:  #C8B89A;   /* dorado/arena — labels */
+
+  --font-headline: 'TT Commons', sans-serif;
+  --font-ui:       'Courier Prime', monospace;
+  --font-body:     'Karla', sans-serif;
+  --font-menu:     'TT Commons', 'Inter', Helvetica, sans-serif;
+}
+
+/* ─── RESET ───────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.page-home {
+  background-color: #000;
+  background-image: url('../imagenes/home/Mapa_2000.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  user-select: none;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ─── PAGE FADEIN ─────────────────────────────────────────── */
+#page-wrapper {
+  opacity: 0;
+  animation: pageFadeIn 0.4s ease forwards;
+}
+@keyframes pageFadeIn { to { opacity: 1; } }
+
+
+/* ─── .brutalist-border ──────────────────────────────────── */
+/*  = Stitch: border: 1px solid #111111                       */
+.brutalist-border {
+  border: 1px solid var(--ink);
+}
+
+/* ─── .nav-box ───────────────────────────────────────────── */
+/*  = Stitch: display:inline-block; width:fit-content;
+    margin-bottom:8px                                         */
+.nav-box {
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
+/* ─── SIDE NAVIGATION ─────────────────────────────────────── */
+/*  = Stitch: fixed left-8 top-10 z-50
+    flex flex-col items-start gap-0                           */
+#nav {
+  position: fixed;
+  left: 32px;
+  top: 40px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Logo box
+   = Stitch: bg-primary text-surface brutalist-border
+     px-2 py-1.5 flex flex-col                               */
+.nav-logo {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 6px 8px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* = Stitch: font-headline text-3xl tracking-tighter          */
+.nav-logo .logo-name {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 1.875rem;        /* text-3xl */
+  letter-spacing: -0.05em;   /* tracking-tighter */
+  line-height: 1;
+  display: block;
+}
+
+/* = Stitch: font-ui text-[10px] uppercase tracking-normal
+    mt-0.5 opacity-90                                         */
+.nav-logo .logo-sub {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  opacity: 0.9;
+  display: block;
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+/* Nav links
+   = Stitch: nav-box bg-surface-container-lowest text-on-surface
+     brutalist-border px-1.5 py-0.5
+     font-menu font-[900] text-2xl tracking-tighter
+     hover:bg-primary hover:text-surface
+     transition-colors duration-75                            */
+.nav-link {
+  background: var(--white);
+  color: var(--ink);
+  padding: 2px 6px;           /* py-0.5 px-1.5 */
+  font-family: var(--font-menu);
+  font-weight: 600;
+  font-size: 1.5rem;          /* text-2xl = 24px */
+  letter-spacing: -0.05em;   /* tracking-tighter */
+  line-height: 1.25;
+  cursor: pointer;
+  transition: background 75ms, color 75ms;
+  white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* OBRA (PRÓXIMAMENTE) — deshabilitado */
+.nav-link.soon {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ─── LANGUAGE SELECTOR ───────────────────────────────────── */
+/*  = Stitch: fixed bottom-10 left-8 z-50
+    nav-box bg-surface-container-lowest text-on-surface
+    brutalist-border px-2 py-0.5
+    font-menu font-black text-sm tracking-widest uppercase    */
+#lang-selector {
+  position: fixed;
+  bottom: 40px;
+  left: 32px;
+  z-index: 50;
+}
+
+.lang-box {
+  display: flex;
+}
+
+.lang-btn {
+  background: var(--white);
+  color: var(--ink);
+  padding: 2px 8px;
+  font-family: var(--font-menu);
+  font-weight: 900;
+  font-size: 0.875rem;        /* text-sm = 14px */
+  letter-spacing: 0.1em;     /* tracking-widest */
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 75ms, color 75ms;
+}
+
+.lang-btn:not(:last-child) {
+  border-right: none;
+}
+
+.lang-btn.active,
+.lang-btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* ─── FOOTER ──────────────────────────────────────────────── */
+/*  = Stitch: fixed bottom-6 right-6 z-50
+    font-ui text-[10px] uppercase tracking-[0.2em]
+    text-on-surface                                           */
+#footer {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+}
+
+#footer span {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* ─── MAIN CANVAS ─────────────────────────────────────────── */
+/*  = Stitch: relative min-h-screen w-full p-20 z-10          */
+#canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none; /* el canvas en sí no bloquea */
+}
+
+/* ─── IMAGEN FLOTANTE ─────────────────────────────────────── */
+/*  = Stitch: absolute w-[Xpx] image-card cursor-pointer
+    group cursor-grab                                          */
+.obra-flotante {
+  position: absolute;
+  cursor: grab;
+  user-select: none;
+  pointer-events: all;
+}
+
+.obra-flotante:active,
+.obra-flotante.dragging {
+  cursor: grabbing;
+}
+
+.card-inner {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  display: block;
+}
+
+/* Imagen: COLOR por defecto
+   = usuario pidió: color normal, B&N solo en hover          */
+.obra-flotante img,
+.obra-flotante video {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: none;                /* COLOR */
+  transition: filter 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+/* Hover: B&N + blur + darken */
+.obra-flotante:hover img,
+.obra-flotante:hover video {
+  filter: grayscale(100%) blur(8px);
+  opacity: 0.3;                /* Oscurecido un poco más (antes 0.4) */
+}
+
+/* ─── OVERLAY INFO ────────────────────────────────────────── */
+/*  = Stitch: image-overlay absolute inset-0
+    flex items-center justify-center opacity-0
+    transition-all duration-300 pointer-events-none p-8       */
+.obra-info {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  color: var(--white);
+}
+
+/* ─── HOVER TEXT LAYOUTS (DIAGRAMACIÓN DINÁMICA) ───────────── */
+
+/* Cuadrado / Por defecto */
+.layout-square.obra-flotante { max-width: 440px; }
+.layout-square .obra-info {
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+}
+.layout-square .obra-info-inner {
+  text-align: center;
+}
+
+/* Portrait (Vertical) */
+.layout-portrait.obra-flotante { max-width: 320px; }
+.layout-portrait .obra-info {
+  align-items: flex-end;     /* Abajo */
+  justify-content: flex-start; /* Izquierda */
+  padding: 24px;
+}
+.layout-portrait .obra-info-inner {
+  text-align: left;
+}
+.layout-portrait .info-title {
+  font-size: 1.25rem !important; /* Más pequeño para portrait */
+}
+
+/* Landscape (Horizontal) */
+.layout-landscape.obra-flotante { max-width: 540px; }
+.layout-landscape .obra-info {
+  align-items: center;       /* Centro vertical */
+  justify-content: flex-start; /* Izquierda */
+  padding: 40px;
+}
+.layout-landscape .obra-info-inner {
+  text-align: left;
+  max-width: 450px !important; /* Texto un poco más amplio */
+}
+
+.obra-flotante:hover .obra-info {
+  opacity: 1;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.obra-info-inner {
+  text-align: center;
+}
+
+/* Título = Stitch: font-headline text-2xl uppercase mb-2 leading-tight */
+.obra-info .info-title {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 1.5rem;          /* text-2xl */
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+/* Técnica = Stitch: font-ui text-xs mb-4 opacity-90 */
+.obra-info .info-meta {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;         /* text-xs */
+  opacity: 0.9;
+  margin-bottom: 16px;
+}
+
+/* Descripción = Stitch: font-body text-sm leading-relaxed max-w-sm */
+.obra-info .info-desc {
+  font-family: var(--font-body);
+  font-size: 0.875rem;        /* text-sm */
+  line-height: 1.6;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* ─── MODAL ───────────────────────────────────────────────── */
+
+#modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--bg);
+  overflow-y: auto;
+  overflow-x: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#modal-overlay.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+/* ─── BOTÓN CERRAR ────────────────────────────────────────── */
+#modal-close {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  z-index: 220;
+  width: 48px;
+  height: 48px;
+  background: var(--ink);
+  color: var(--bg);
+  border: 1px solid var(--ink);
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 75ms, color 75ms;
+}
+
+#modal-close:hover {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* ─── SELECTOR DE IDIOMA EN MODAL ─────────────────────────── */
+#modal-lang-selector {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  z-index: 220;
+}
+
+/* ─── HERO ────────────────────────────────────────────────── */
+#modal-hero {
+  width: 100%;
+  height: 60vh;
+  min-height: 360px;
+  background: var(--ink);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#modal-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.modal-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 16px 24px;
+  z-index: 5;
+  transition: color 150ms;
+  font-family: var(--font-body);
+}
+
+.modal-arrow:hover { color: rgba(255, 255, 255, 1); }
+#modal-prev        { left: 8px; }
+#modal-next        { right: 8px; }
+
+/* Scroll hint */
+#modal-scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#modal-scroll-hint span {
+  font-family: var(--font-ui);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+#modal-scroll-hint::after {
+  content: '↓';
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.35);
+  animation: modalBounce 1.6s ease infinite;
+}
+
+@keyframes modalBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(7px); }
+}
+
+/* ─── CUERPO DEL MODAL ────────────────────────────────────── */
+#modal-body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 60px;
+  display: grid;
+  grid-template-columns: 7fr 4fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* ─── COLUMNA IZQUIERDA ───────────────────────────────────── */
+#modal-colectivo {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--ink);
+  opacity: 0.5;
+  margin-bottom: 20px;
+}
+
+#modal-titulo {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+#modal-subtitulo {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 3rem);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+  opacity: 0.28;
+  margin-bottom: 64px;
+}
+
+.modal-label {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--ink);
+  opacity: 0.4;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+  padding-bottom: 8px;
+  margin-bottom: 32px;
+  font-weight: normal;
+}
+
+.modal-desc-p {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--ink);
+  opacity: 0.85;
+  margin-bottom: 28px;
+  max-width: 620px;
+}
+
+/* ─── COLUMNA DERECHA — FICHA TÉCNICA ─────────────────────── */
+#modal-right {
+  border-top: 2px solid var(--ink);
+  padding-top: 48px;
+  position: sticky;
+  top: 80px;
+}
+
+.modal-ficha-heading {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ink);
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+#modal-ficha dt {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ink);
+  opacity: 0.4;
+  margin-bottom: 4px;
+}
+
+#modal-ficha dd {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.6;
+  margin: 0 0 28px 0;
+}
+
+/* ─── GALERÍA DE MINIATURAS ───────────────────────────────── */
+#modal-gallery {
+  border-top: 1px solid rgba(17, 17, 17, 0.1);
+  padding: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#modal-thumbs {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+#modal-thumbs::-webkit-scrollbar { display: none; }
+
+.modal-thumb {
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0;
+  overflow: hidden;
+  transition: border-color 150ms;
+}
+
+.modal-thumb.active {
+  border-bottom-color: var(--ink);
+}
+
+.modal-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  transition: filter 300ms;
+  display: block;
+}
+
+.modal-thumb:hover img,
+.modal-thumb.active img {
+  filter: none;
+}
+
+/* ============================================================
+   PÁGINA PROYECTOS — Carrusel en arco
+   ============================================================ */
+
+/* ── Layout base ──────────────────────────────────────────── */
+body.page-proyectos {
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+  height: 100vh;
+}
+
+body.page-proyectos #page-wrapper {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Fondo full-screen con crossfade ─────────────────────── */
+#proy-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+#proy-bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.75s ease;
+  will-change: opacity;
+}
+
+#bg-img-a { opacity: 1; }
+#bg-img-b { opacity: 0; }
+
+#proy-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.52);
+  z-index: 1;
+}
+
+/* ── Contenedor del arco (posicionado por JS) ─────────────── */
+#arc-container {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ── Miniaturas ───────────────────────────────────────────── */
+.proy-thumb {
+  position: absolute;
+  width: 66px;
+  height: 82px;
+  pointer-events: all;
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: border-color 0.3s ease, border-width 0.15s ease;
+  will-change: transform, opacity;
+}
+
+.proy-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.proy-thumb--active {
+  border: 2px solid rgba(255, 255, 255, 0.88);
+}
+
+.proy-thumb:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* ── Info central ─────────────────────────────────────────── */
+#center-info {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  text-align: center;
+  max-width: 46vw;
+  cursor: pointer;
+  user-select: none;
+  padding: 0 2vw;
+}
+
+#center-info:focus { outline: none; }
+
+#proy-numero {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.28);
+  margin-bottom: 1.1rem;
+  text-transform: uppercase;
+}
+
+#proy-titulo {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2.8vw, 2.8rem);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  margin-bottom: 0.7rem;
+  transition: opacity 0.3s ease;
+}
+
+#proy-medio {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-bottom: 1rem;
+  transition: opacity 0.3s ease;
+}
+
+#proy-desc {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.8;
+  max-width: 36vw;
+  margin: 0 auto;
+  transition: opacity 0.3s ease;
+}
+
+.proy-cta {
+  display: inline-block;
+  margin-top: 2rem;
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 3px;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+#center-info:hover .proy-cta {
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+/* ── Hint de scroll ───────────────────────────────────────── */
+#proy-scroll-hint {
+  position: fixed;
+  bottom: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  font-family: var(--font-ui);
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+/* ── Nav adaptada a fondo negro ───────────────────────────── */
+body.page-proyectos .nav-box {
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+body.page-proyectos .nav-logo {
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+body.page-proyectos .nav-logo .logo-sub {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+body.page-proyectos .nav-link {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+body.page-proyectos .nav-link:hover {
+  background: #fff;
+  color: #000;
+}
+
+body.page-proyectos .nav-active {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+body.page-proyectos .nav-link.soon {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ── Lang selector adaptado ───────────────────────────────── */
+body.page-proyectos .lang-box {
+  background: rgba(0, 0, 0, 0.75);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+body.page-proyectos .lang-btn {
+  background: #fff;
+  color: #000;
+}
+
+body.page-proyectos .lang-btn.active,
+body.page-proyectos .lang-btn:hover {
+  background: transparent;
+  color: #fff;
+}
+
+/* ── Footer adaptado ──────────────────────────────────────── */
+body.page-proyectos #footer {
+  color: rgba(255, 255, 255, 0.28);
+}

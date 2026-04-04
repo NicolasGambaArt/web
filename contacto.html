@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CONTACTO — NICOLÁS GAMBA</title>
+  <meta name="description" content="Contacto — Nicolás Gamba. Artista en medios expandidos y gestor cultural, Bogotá." />
+  <meta name="author" content="Nicolás Gamba" />
+  <meta name="theme-color" content="#F5F2EB" />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Contacto — Nicolás Gamba" />
+  <meta property="og:description" content="Contacto con Nicolás Gamba — artista en medios expandidos y gestor cultural, Bogotá." />
+  <meta property="og:locale"      content="es_CO" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary" />
+  <meta name="twitter:title"       content="Contacto — Nicolás Gamba" />
+  <meta name="twitter:description" content="Contacto con Nicolás Gamba — artista en medios expandidos y gestor cultural, Bogotá." />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    /* ─── PAGE-CONTACTO ────────────────────────────────────── */
+    body.page-contacto {
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    /* ─── CENTRADO TOTAL ───────────────────────────────────── */
+    .contacto-stage {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ─── COLUMNA CENTRAL ──────────────────────────────────── */
+    .contacto-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+    }
+
+    /* ─── EYEBROW ──────────────────────────────────────────── */
+    .c-eyebrow {
+      font-family: var(--font-ui);
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.35;
+      display: block;
+      animation: cUpDim035 0.4s ease both 0.04s;
+    }
+
+    /* ─── LÍNEA ACENTO ─────────────────────────────────────── */
+    .c-rule {
+      width: 32px;
+      height: 1px;
+      background: var(--accent);
+      margin: 28px auto 32px;
+      animation: cUp 0.4s ease both 0.1s;
+    }
+
+    /* ─── ITEMS DE CONTACTO ────────────────────────────────── */
+    .c-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 32px;
+      animation: cUp 0.4s ease both;
+    }
+
+    .c-item:nth-child(1) { animation-delay: 0.16s; }
+    .c-item:nth-child(2) { animation-delay: 0.24s; }
+    .c-item:nth-child(3) { animation-delay: 0.32s; }
+    .c-item:nth-child(4) { animation-delay: 0.40s; }
+
+    .c-item:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Micro-label sobre el item (solo para Ebra) */
+    .c-sublabel {
+      font-family: var(--font-ui);
+      font-size: 8px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.38;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* El link en sí */
+    .c-link {
+      font-family: var(--font-ui);
+      font-size: 1.05rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      transition: opacity 140ms ease;
+      line-height: 1;
+    }
+
+    .c-link:hover {
+      opacity: 0.35;
+    }
+
+    /* ─── UBICACIÓN FINAL ──────────────────────────────────── */
+    .c-location {
+      margin-top: 56px;
+      font-family: var(--font-ui);
+      font-size: 9px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.28;
+      animation: cUpDim028 0.4s ease both 0.48s;
+    }
+
+    /* ─── ENTRADA ──────────────────────────────────────────── */
+    @keyframes cUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+    /* Variantes que respetan la opacidad final del CSS */
+    @keyframes cUpDim035 {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 0.35; transform: translateY(0); }
+    }
+    @keyframes cUpDim028 {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 0.28; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="page-contacto">
+<div id="page-wrapper">
+
+  <!-- ══ NAVEGACIÓN LATERAL ══════════════════════════════════ -->
+  <nav id="nav" role="navigation" aria-label="Navegación principal">
+    <a href="index.html" class="nav-box nav-logo brutalist-border">
+      <span class="logo-name">NICOLÁS GAMBA</span>
+      <span class="logo-sub" data-i18n="logo_sub">Artista en medios expandidos y gestor cultural</span>
+    </a>
+    <a class="nav-box nav-link brutalist-border"        href="yo.html"        data-page="yo"        data-i18n="nav_yo">YO</a>
+    <a class="nav-box nav-link brutalist-border"        href="proyectos.html" data-page="proyectos" data-i18n="nav_proyectos">PROYECTOS</a>
+    <a class="nav-box nav-link brutalist-border soon"                         data-page="obra"      data-i18n="nav_obra">OBRA (PRÓXIMAMENTE)</a>
+    <a class="nav-box nav-link brutalist-border active" href="contacto.html"  data-page="contacto"  data-i18n="nav_contacto">CONTACTO</a>
+  </nav>
+
+  <!-- ══ SELECTOR DE IDIOMA ══════════════════════════════════ -->
+  <div id="lang-selector">
+    <div class="lang-box brutalist-border">
+      <button class="lang-btn active" data-lang="es">ES</button>
+      <button class="lang-btn"        data-lang="en">EN</button>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══════════════════════════════════════════════ -->
+  <footer id="footer">
+    <span data-i18n="footer">© Nicolás Gamba · Bogotá</span>
+  </footer>
+
+  <!-- ══ CONTENIDO CENTRADO ══════════════════════════════════ -->
+  <main class="contacto-stage">
+    <div class="contacto-col">
+
+      <span class="c-eyebrow" data-i18n="contacto_eyebrow">Contacto</span>
+      <div class="c-rule"></div>
+
+      <!-- Email personal -->
+      <div class="c-item">
+        <span class="c-sublabel">Personal</span>
+        <a href="mailto:nicolasgamba63@gmail.com" class="c-link">
+          nicolasgamba63@gmail.com
+        </a>
+      </div>
+
+      <!-- Email Ebra -->
+      <div class="c-item">
+        <span class="c-sublabel">Ebra</span>
+        <a href="mailto:ebra.colectivo@gmail.com" class="c-link">
+          ebra.colectivo@gmail.com
+        </a>
+      </div>
+
+      <!-- Instagram -->
+      <div class="c-item">
+        <span class="c-sublabel">Instagram</span>
+        <a href="https://www.instagram.com/ni_codemus/"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="c-link">
+          @ni_codemus
+        </a>
+      </div>
+
+      <!-- WhatsApp -->
+      <div class="c-item">
+        <span class="c-sublabel">WhatsApp</span>
+        <a href="https://wa.me/573012636284"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="c-link">
+          +57 301 263 6284
+        </a>
+      </div>
+
+      <span class="c-location">Bogotá, Colombia</span>
+
+    </div>
+  </main>
+
+</div><!-- #page-wrapper -->
+
+<script src="js/main.js"></script>
+</body>
+</html>

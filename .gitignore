@@ -1,0 +1,21 @@
+# Archivos internos de Claude Code
+.agent/
+.claude/
+
+# Archivos de trabajo / instrucciones internas
+Instrucciones/
+
+# Scripts de utilidad de desarrollo
+layout-calc.js
+layout-calc2.js
+layout-calc3.js
+clean.js
+compress.js
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+*.swp
