@@ -188,6 +188,7 @@ Pimpina no proponía una estética fija ni una identidad estable — al contrari
     titulo: 'SIGIT',
     subtitulo: null,
     colectivo: 'Universidad de los Andes · Facultad de Medicina',
+    link: { url: 'https://sigit.uniandes.edu.co', label_es: 'Visitar sitio web →', label_en: 'Visit website →' },
     imagen: 'imagenes/home/main/SIGIT_main.webp',
     tipo: 'img',
     imagenes: [
@@ -295,6 +296,7 @@ Severo Cochoviz no solo parodia las dinámicas del emprendimiento, sino que las 
     titulo: 'Ebra Colectivo',
     subtitulo: null,
     colectivo: 'Nicolás Gamba · Carlos Rincón · Yazmín Cortés',
+    link: { url: 'https://www.instagram.com/ebra.colectivo', label_es: '@ebra.colectivo →', label_en: '@ebra.colectivo →' },
     imagen: 'imagenes/home/main/Ebra_main.webp',
     tipo: 'img',
     imagenes: [
@@ -368,6 +370,7 @@ Con tres ediciones concluidas, El Abrazo ha logrado establecerse como un lugar d
     titulo: 'El Nudo',
     subtitulo: null,
     colectivo: 'El Nudo',
+    link: { url: 'https://www.instagram.com/e.l.n.u.d.o', label_es: '@e.l.n.u.d.o →', label_en: '@e.l.n.u.d.o →' },
     imagen: 'imagenes/home/main/ElNudo_main.webp',
     tipo: 'img',
     imagenes: [
@@ -426,6 +429,7 @@ Utilizando TouchDesigner, implementó un sistema de visuales generativas que int
     titulo: 'Mundos Digitales — IDARTES',
     subtitulo: null,
     colectivo: 'IDARTES · Nicolás Gamba',
+    link: { url: 'https://mundosdigitales.idartes.gov.co/hub', label_es: 'Visitar plataforma →', label_en: 'Visit platform →' },
     imagen: 'imagenes/home/main/MundosDigitales_main.webp',
     tipo: 'img',
     imagenes: [
@@ -1016,6 +1020,7 @@ function crearModal() {
             <h3 class="modal-label">Descripción</h3>
             <div id="modal-descripcion"></div>
           </section>
+          <a id="modal-project-link" href="#" target="_blank" rel="noopener" style="display:none;"></a>
         </div>
         <aside id="modal-right">
           <h3 class="modal-ficha-heading">Ficha Técnica</h3>
@@ -1105,6 +1110,19 @@ function abrirModal(obraId) {
   /* Descripción + ficha técnica (bilingüe) */
   renderDescripcionYFicha(obraId, data);
   sincronizarLangModal();
+
+  /* Link externo */
+  const linkEl = document.getElementById('modal-project-link');
+  if (linkEl) {
+    if (data.link) {
+      var lang = getLang();
+      linkEl.href        = data.link.url;
+      linkEl.textContent = lang === 'en' ? data.link.label_en : data.link.label_es;
+      linkEl.style.display = '';
+    } else {
+      linkEl.style.display = 'none';
+    }
+  }
 
   /* Galería de miniaturas */
   const thumbsEl  = document.getElementById('modal-thumbs');
@@ -1225,7 +1243,14 @@ document.addEventListener('DOMContentLoaded', function () {
     sincronizarLangModal();
     if (currentObraId) {
       var data = PROYECTOS[currentObraId];
-      if (data) renderDescripcionYFicha(currentObraId, data);
+      if (data) {
+        renderDescripcionYFicha(currentObraId, data);
+        var linkEl2 = document.getElementById('modal-project-link');
+        if (linkEl2 && data.link) {
+          var lang2 = getLang();
+          linkEl2.textContent = lang2 === 'en' ? data.link.label_en : data.link.label_es;
+        }
+      }
     }
   });
 

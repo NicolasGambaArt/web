@@ -343,21 +343,7 @@
       </div>
     </article>
 
-    <!-- 19. MUESTRA DE CINE ERÓTICO Y POSPORNO -->
-    <article class="obra-flotante" id="obra-postporno" style="max-width:380px; top:50%; right:36%;">
-      <div class="card-inner" >
-        <img src="imagenes/home/main/MCEP_main.webp" alt="4ta. Muestra de Cine Erótico y Posporno de Bogotá" draggable="false" />
-        <div class="obra-info"><div class="obra-info-inner">
-          <p class="info-title">Muestra de Cine Erótico de Bogotá</p>
-          <p class="info-meta"
-             data-es="Ilustración · Diseño editorial · 2024"
-             data-en="Illustration · Editorial design · 2024">Ilustración · Diseño editorial · 2024</p>
-          <p class="info-desc"
-             data-es="Identidad visual e ilustración oficial para la 4ta. Muestra de Cine Erótico y Posporno de Bogotá. Explora la relación entre tecnología, deseo y nuevas narrativas del cuerpo bajo un enfoque de género crítico."
-             data-en="Visual identity and official illustration for the 4th Bogotá Erotic and Post-Porn Film Festival. Explores the relationship between technology, desire, and new body narratives through a critical gender approach.">Identidad visual e ilustración oficial para la 4ta. Muestra de Cine Erótico y Posporno de Bogotá. Explora la relación entre tecnología, deseo y nuevas narrativas del cuerpo bajo un enfoque de género crítico.</p>
-        </div></div>
-      </div>
-    </article>
+
 
     <!-- 20. ZIHITA — AURORA -->
     <article class="obra-flotante" id="obra-zihita" style="max-width:380px; top:30%; right:5%;">
@@ -446,6 +432,36 @@
 <script src="js/drag.js"></script>
 <script src="js/main.js"></script>
 <script src="js/modal.js"></script>
+<script>
+  /* Posicionamiento aleatorio de las obras flotantes en Home.
+     Se ejecuta tras cargar los scripts para no interferir con drag.js.
+     Preserva el max-width de cada carta y usa sólo top/left
+     para evitar conflictos con right/bottom. */
+  (function () {
+    var cards = document.querySelectorAll('#canvas .obra-flotante');
+    var cols  = 5;   // divisiones horizontales aproximadas
+    var rows  = 4;   // divisiones verticales aproximadas
+    var slots = [];
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        slots.push({ r: r, c: c });
+      }
+    }
+    /* Barajar slots (Fisher-Yates) */
+    for (var i = slots.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = slots[i]; slots[i] = slots[j]; slots[j] = tmp;
+    }
+    cards.forEach(function (card, idx) {
+      var maxW = card.style.maxWidth || '400px';
+      var slot = slots[idx % slots.length];
+      /* Dentro de cada celda, añadir un jitter aleatorio */
+      var topPct  = (slot.r / rows) * 72 + Math.random() * 14 + 2;
+      var leftPct = (slot.c / cols) * 80 + Math.random() * 10 + 2;
+      card.style.cssText = 'max-width:' + maxW + '; top:' + topPct.toFixed(1) + '%; left:' + leftPct.toFixed(1) + '%;';
+    });
+  })();
+</script>
 
 </body>
 </html>

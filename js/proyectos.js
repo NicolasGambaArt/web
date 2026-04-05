@@ -72,11 +72,11 @@
     'obra-abrazo',          'obra-el-nudo',          'obra-era-sonera',
     'obra-mundos-digitales','obra-mascara',          'obra-canal',
     'obra-homun',           'obra-confinamiento',    'obra-espiritu-balanta',
-    'obra-postporno',       'obra-zihita',           'obra-jacana',
+    'obra-zihita',           'obra-jacana',
     'obra-juana-briela',    'obra-soul-room',        'obra-thaissa',
   ];
 
-  var N = ORDEN.length; // 24
+  var N = ORDEN.length; // 23
 
   /* ─── ESTADO ──────────────────────────────────────────────── */
   var rotationAngle  = 0;
@@ -163,23 +163,28 @@
     }
   }
 
-  /* ─── POSICIONAMIENTO LINEAL (mobile) ────────────────────── */
+  /* ─── POSICIONAMIENTO LINEAL (mobile) — estilo voku ────────── */
   function placeThumbLinear() {
-    var THUMB_W = 44, GAP = 10;
-    var STEP    = THUMB_W + GAP;
+    var THUMB_W = 196, GAP = 18;
+    var STEP    = THUMB_W + GAP;              // 214 px por tarjeta
     var CX      = window.innerWidth / 2;
-    var y       = window.innerHeight - 72;  // tira en la parte inferior
+    var y       = window.innerHeight * 0.36;  // centro en el tercio superior
+
+    // Posición continua derivada directamente del ángulo de rotación.
+    // Esto hace que las tarjetas sigan el dedo 1:1, sin saltos discretos.
+    var activeFloat = -rotationAngle * N / (2 * Math.PI);
 
     for (var i = 0; i < N; i++) {
-      // Diferencia respecto al índice activo (circular)
-      var diff = i - activeIndex;
-      if (diff >  N / 2) diff -= N;
-      if (diff < -N / 2) diff += N;
+      var diff = i - activeFloat;
+      // Wrap circular
+      while (diff >  N / 2) diff -= N;
+      while (diff < -N / 2) diff += N;
 
-      var x    = CX + diff * STEP;
+      var x       = CX + diff * STEP;
       var absDiff = Math.abs(diff);
-      var scale   = Math.max(0.45, 1 - absDiff * 0.055);
-      var opacity = Math.max(0.18, 1 - absDiff * 0.11);
+      // Curva pronunciada: tarjeta activa destaca sobre las vecinas
+      var scale   = Math.max(0.25, 1 - absDiff * 0.24);
+      var opacity = Math.max(0.08, 1 - absDiff * 0.42);
 
       var el = thumbEls[i];
       el.style.left      = x + 'px';
@@ -216,7 +221,7 @@
     var id   = ORDEN[idx];
     var data = PROYECTOS[id];
 
-    numEl.textContent   = '';
+    numEl.textContent   = String(idx + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0');
     titleEl.textContent = data.titulo;
     medioEl.textContent = getMedioAnio(id);
     descEl.textContent  = getDescCorta(id);
@@ -262,7 +267,7 @@
   function animate() {
     var delta = targetRotation - rotationAngle;
     if (Math.abs(delta) > 0.0005) {
-      rotationAngle += delta * 0.09;
+      rotationAngle += delta * (isMobile ? 0.072 : 0.09);
     } else {
       rotationAngle = targetRotation;
     }
@@ -303,10 +308,11 @@
       });
     });
 
-    // ── Click / Enter en info central → modal ──────────────
+    // ── Click / Enter en info central → modal (solo desktop) ──
     var infoEl = document.getElementById('center-info');
 
     infoEl.addEventListener('click', function () {
+      if (isMobile) return; // en mobile el modal se abre desde la tarjeta
       if (typeof abrirModal === 'function') {
         abrirModal(ORDEN[activeIndex]);
       }
@@ -322,53 +328,81 @@
     });
 
     // ── Swipe táctil ──────────────────────────────────────
-    // Desktop: vertical · Mobile: horizontal continuo
+    // Desktop: vertical  ·  Mobile: horizontal con tracking de velocidad
     var touchStartX = 0, touchStartY = 0;
     var swipeStartRotation = 0;
-    var isSwiping = false;
-    var SWIPE_PX = 54; // píxeles por paso de item (thumb 44 + gap 10)
+    var isSwiping   = false;
+    var isScrolling = false; // el dedo eligió scroll vertical → ignorar
+    var SWIPE_PX    = 214;  // px por paso (thumb 196 + gap 18)
+    var velX        = 0;    // velocidad en px/ms al soltar
+    var lastDx      = 0, lastMoveTime = 0;
 
     window.addEventListener('touchstart', function (e) {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
+      touchStartX        = e.touches[0].clientX;
+      touchStartY        = e.touches[0].clientY;
       swipeStartRotation = rotationAngle;
-      isSwiping = false;
+      isSwiping          = false;
+      isScrolling        = false;
+      velX               = 0;
+      lastDx             = 0;
+      lastMoveTime       = Date.now();
     }, { passive: true });
 
+    // NON-PASSIVE: necesitamos preventDefault para bloquear el scroll del
+    // browser mientras el usuario desliza el carrusel horizontalmente.
     window.addEventListener('touchmove', function (e) {
       if (!isMobile) return;
       var modal = document.getElementById('modal-overlay');
       if (modal && modal.classList.contains('is-open')) return;
+      if (isScrolling) return; // ya decidimos que es scroll vertical
 
       var dx = e.touches[0].clientX - touchStartX;
       var dy = e.touches[0].clientY - touchStartY;
 
-      // Determinar dirección dominante al arrancar
+      // Detectar dirección dominante en los primeros píxeles
       if (!isSwiping) {
-        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+        if (Math.abs(dx) < 5 && Math.abs(dy) < 5) return;
         if (Math.abs(dx) >= Math.abs(dy)) {
           isSwiping = true;
         } else {
-          return; // swipe vertical: ignorar
+          isScrolling = true; // ceder el control al scroll nativo
+          return;
         }
       }
 
-      // Mover el carrusel directamente según el dedo
-      var delta = -(dx / SWIPE_PX) * (2 * Math.PI / N);
+      // Bloquar scroll del browser durante swipe horizontal
+      e.preventDefault();
+
+      // Rastrear velocidad (px/ms)
+      var now = Date.now();
+      var dt  = now - lastMoveTime;
+      if (dt > 0 && dt < 100) velX = (dx - lastDx) / dt;
+      lastDx       = dx;
+      lastMoveTime = now;
+
+      // Mover el carrusel 1:1 con el dedo (sin negación: izquierda → avanza)
+      var delta = (dx / SWIPE_PX) * (2 * Math.PI / N);
       rotationAngle  = swipeStartRotation + delta;
-      targetRotation = rotationAngle; // sin lerp mientras se arrastra
-    }, { passive: true });
+      targetRotation = rotationAngle;
+    }, { passive: false }); // ← non-passive
 
     window.addEventListener('touchend', function (e) {
       if (isMobile) {
         if (isSwiping) {
-          // Snap suave al item más cercano
-          targetRotation = rotationAngle;
-          rotateTo(computeActiveIndex());
+          // Flick rápido → avanzar un paso en la dirección del gesto.
+          // velX > 0 = dedo fue a la derecha = retroceder (-1)
+          // velX < 0 = dedo fue a la izquierda = avanzar (+1)
+          if (Math.abs(velX) > 0.25) {
+            rotateBy(velX > 0 ? -1 : 1);
+          } else {
+            // Snap suave al item más cercano
+            targetRotation = rotationAngle;
+            rotateTo(computeActiveIndex());
+          }
         } else {
-          // Swipe muy corto (tap) → avanzar un paso si hubo algo de movimiento
-          var dx = e.changedTouches[0].clientX - touchStartX;
-          if (Math.abs(dx) > 20) rotateBy(dx < 0 ? 1 : -1);
+          // Tap con algo de movimiento → avanzar un paso
+          var tapDx = e.changedTouches[0].clientX - touchStartX;
+          if (Math.abs(tapDx) > 18) rotateBy(tapDx > 0 ? -1 : 1);
         }
         isSwiping = false;
         return;
