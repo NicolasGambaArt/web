@@ -757,7 +757,7 @@ La pieza se completa con un componente sonoro de carácter intuitivo. La música
       'Cliente','Thaissa / El Kalvo'],
       [
       'Lugar','Teatro Libre de Bogotá']],
-    descripcion: `Propuesta de video mapping e identidad visual para el lanzamiento musical de Thaissa en el Teatro Libre de Bogotá, en el marco del lanzamiento 
+    descripcion: `Propuesta de video mapping e identidad visual para el lanzamiento musical de Thaissa en el Teatro Libre de Bogotá, en el marco del lanzamiento de Los tres golpes de El Kalvo.
 
 La experiencia integró arte digital interactivo y nuevos medios para acompañar la presentación del proyecto, construyendo un espacio visual que dialogara con la sonoridad de la artista.`
   },

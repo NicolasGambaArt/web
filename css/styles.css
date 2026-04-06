@@ -1056,10 +1056,6 @@ body.page-proyectos #footer {
     line-height: 1.55;
     max-width: 100%;
     margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   }
 
   /* Durante drag, no mostrar overlay aunque haya touch-active */
@@ -1104,7 +1100,7 @@ body.page-proyectos #footer {
     transform: none !important;
     width: 100%;
     max-width: 100%;
-    padding: 72px 24px 80px;
+    padding: 72px 24px 120px;
     cursor: default;
     text-align: left;
     /* gradiente que se mezcla con el fondo oscuro */
