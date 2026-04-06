@@ -990,10 +990,18 @@ body.page-proyectos #footer {
     inset: 0;
   }
 
-  /* Obras más grandes en mobile para evitar scroll */
-  .layout-square.obra-flotante    { max-width: 280px; }
-  .layout-portrait.obra-flotante  { max-width: 220px; }
-  .layout-landscape.obra-flotante { max-width: 320px; }
+  /* Tamaño dinámico según longitud de texto para evitar scroll */
+  .text-short.layout-square.obra-flotante    { max-width: 170px; }
+  .text-short.layout-portrait.obra-flotante  { max-width: 140px; }
+  .text-short.layout-landscape.obra-flotante { max-width: 210px; }
+
+  .text-medium.layout-square.obra-flotante    { max-width: 210px; }
+  .text-medium.layout-portrait.obra-flotante  { max-width: 180px; }
+  .text-medium.layout-landscape.obra-flotante { max-width: 260px; }
+
+  .text-long.layout-square.obra-flotante    { max-width: 260px; }
+  .text-long.layout-portrait.obra-flotante  { max-width: 220px; }
+  .text-long.layout-landscape.obra-flotante { max-width: 310px; }
 
   /* Info visible al tocar (touch-active) */
   .obra-flotante.touch-active img,
