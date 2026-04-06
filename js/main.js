@@ -240,9 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const article = media.closest('.obra-flotante');
 
-      // Remove inline width/max-width to allow CSS to control it
-      article.style.width = '';
-      article.style.maxWidth = '';
+
 
       if (ratio < 0.85) {
         article.classList.add('layout-portrait');
