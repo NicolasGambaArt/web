@@ -990,30 +990,37 @@ body.page-proyectos #footer {
     inset: 0;
   }
 
-  /* Tamaños fijos por tarjeta en mobile — respaldo CSS del mapa JS */
-  #obra-inquebrantables  { max-width: 250px !important; }
-  #obra-ascii            { max-width: 240px !important; }
-  #obra-zarigueya        { max-width: 250px !important; }
-  #obra-muerte-viva      { max-width: 260px !important; }
-  #obra-pimpina          { max-width: 230px !important; }
-  #obra-sigit            { max-width: 240px !important; }
-  #obra-monolito         { max-width: 230px !important; }
-  #obra-severo           { max-width: 230px !important; }
-  #obra-ebra             { max-width: 260px !important; }
-  #obra-abrazo           { max-width: 230px !important; }
-  #obra-el-nudo          { max-width: 260px !important; }
-  #obra-era-sonera       { max-width: 250px !important; }
-  #obra-mundos-digitales { max-width: 260px !important; }
-  #obra-mascara          { max-width: 250px !important; }
-  #obra-canal            { max-width: 210px !important; }
-  #obra-homun            { max-width: 240px !important; }
-  #obra-confinamiento    { max-width: 240px !important; }
-  #obra-espiritu-balanta { max-width: 250px !important; }
-  #obra-zihita           { max-width: 240px !important; }
-  #obra-jacana           { max-width: 190px !important; }
-  #obra-juana-briela     { max-width: 190px !important; }
-  #obra-soul-room        { max-width: 190px !important; }
-  #obra-thaissa          { max-width: 230px !important; }
+  /* Tamaños fijos por tarjeta en mobile — usa 'width' (no max-width) para estabilidad */
+  #obra-inquebrantables  { width: 250px !important; }
+  #obra-ascii            { width: 240px !important; }
+  #obra-zarigueya        { width: 250px !important; }
+  #obra-muerte-viva      { width: 260px !important; }
+  #obra-pimpina          { width: 230px !important; }
+  #obra-sigit            { width: 240px !important; }
+  #obra-monolito         { width: 230px !important; }
+  #obra-severo           { width: 230px !important; }
+  #obra-ebra             { width: 260px !important; }
+  #obra-abrazo           { width: 230px !important; }
+  #obra-el-nudo          { width: 260px !important; }
+  #obra-era-sonera       { width: 250px !important; }
+  #obra-mundos-digitales { width: 260px !important; }
+  #obra-mascara          { width: 250px !important; }
+  #obra-canal            { width: 210px !important; }
+  #obra-homun            { width: 240px !important; }
+  #obra-confinamiento    { width: 240px !important; }
+  #obra-espiritu-balanta { width: 250px !important; }
+  #obra-zihita           { width: 240px !important; }
+  #obra-jacana           { width: 190px !important; }
+  #obra-juana-briela     { width: 190px !important; }
+  #obra-soul-room        { width: 190px !important; }
+  #obra-thaissa          { width: 230px !important; }
+
+  /* Forzar que imágenes y videos llenen el ancho fijo */
+  .obra-flotante img,
+  .obra-flotante video {
+    width: 100% !important;
+    display: block;
+  }
 
   /* Info visible al tocar (touch-active) */
   .obra-flotante.touch-active img,

@@ -485,16 +485,16 @@
     }
     cards.forEach(function (card, idx) {
       /* Tamaño: en mobile usa el mapa fijo, en desktop el valor del HTML */
-      var maxW;
-      if (isMobile && mobileWidths[card.id]) {
-        maxW = mobileWidths[card.id];
-      } else {
-        maxW = card.style.maxWidth || '400px';
-      }
       var slot = slots[idx % slots.length];
       var topPct  = (slot.r / rows) * 72 + Math.random() * 14 + 2;
       var leftPct = (slot.c / cols) * 80 + Math.random() * 10 + 2;
-      card.style.cssText = 'max-width:' + maxW + '; top:' + topPct.toFixed(1) + '%; left:' + leftPct.toFixed(1) + '%;';
+      if (isMobile && mobileWidths[card.id]) {
+        /* Mobile: forzar 'width' exacto (no max-width) para estabilidad total */
+        card.style.cssText = 'width:' + mobileWidths[card.id] + '; top:' + topPct.toFixed(1) + '%; left:' + leftPct.toFixed(1) + '%;';
+      } else {
+        var maxW = card.style.maxWidth || '400px';
+        card.style.cssText = 'max-width:' + maxW + '; top:' + topPct.toFixed(1) + '%; left:' + leftPct.toFixed(1) + '%;';
+      }
     });
   })();
 </script>
