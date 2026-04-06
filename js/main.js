@@ -251,16 +251,6 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         article.classList.add('layout-square');
       }
-
-      const descEl = article.querySelector('.info-desc');
-      const charCount = descEl ? descEl.textContent.trim().length : 0;
-      if (charCount < 130) {
-        article.classList.add('text-short');
-      } else if (charCount <= 190) {
-        article.classList.add('text-medium');
-      } else {
-        article.classList.add('text-long');
-      }
     }
 
     if (media.tagName.toLowerCase() === 'video') {
