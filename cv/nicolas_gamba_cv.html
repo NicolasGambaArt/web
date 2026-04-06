@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV — Nicolás Gamba</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── VARIABLES ───────────────────────────────────────────── */
+    :root {
+      --bg:      #F5F2EB;
+      --ink:     #111111;
+      --mid:     #555555;
+      --accent:  #C8B89A;
+      --rule:    #D4CCBE;
+
+      --f-head:  'Space Grotesk', sans-serif;
+      --f-mono:  'Space Mono', monospace;
+
+      --col-label: 90pt;
+      --gap:       18pt;
+    }
+
+    /* ─── RESET & BASE ────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 9.5pt;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--f-head);
+      font-weight: 400;
+      line-height: 1.55;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ─── PAGE WRAPPER ───────────────────────────────────────── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 18mm 16mm 18mm 16mm;
+      background: var(--bg);
+    }
+
+    /* ─── HEADER ─────────────────────────────────────────────── */
+    .cv-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      padding-bottom: 10pt;
+      border-bottom: 1.5pt solid var(--ink);
+      margin-bottom: 20pt;
+      gap: 20pt;
+    }
+
+    .cv-name {
+      font-size: 28pt;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .cv-discipline {
+      font-size: 8.5pt;
+      font-family: var(--f-mono);
+      color: var(--mid);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 5pt;
+    }
+
+    .cv-contact {
+      text-align: right;
+      font-family: var(--f-mono);
+      font-size: 7.5pt;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+
+    .cv-contact a {
+      color: var(--mid);
+      text-decoration: none;
+    }
+
+    /* ─── STATEMENT ──────────────────────────────────────────── */
+    .statement {
+      font-size: 9pt;
+      color: var(--mid);
+      line-height: 1.6;
+      margin-bottom: 20pt;
+      padding-bottom: 14pt;
+      border-bottom: 0.5pt solid var(--rule);
+      max-width: 130mm;
+    }
+
+    /* ─── SECTION ROW ─────────────────────────────────────────── */
+    .section {
+      display: grid;
+      grid-template-columns: var(--col-label) 1pt 1fr;
+      gap: 0 var(--gap);
+      margin-bottom: 0;
+    }
+
+    .section + .section {
+      margin-top: 0;
+    }
+
+    /* label cell */
+    .sec-label {
+      padding-top: 1pt;
+      padding-bottom: 14pt;
+      font-family: var(--f-mono);
+      font-size: 7pt;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    /* vertical rule */
+    .sec-rule {
+      background: var(--rule);
+      width: 1pt;
+      /* spans all rows in the section */
+    }
+
+    /* content cell */
+    .sec-body {
+      padding-bottom: 14pt;
+      padding-left: 0;
+    }
+
+    /* ─── ENTRIES ─────────────────────────────────────────────── */
+    .entry {
+      display: grid;
+      grid-template-columns: 30pt 1fr;
+      gap: 0 8pt;
+      margin-bottom: 5pt;
+    }
+
+    .entry:last-child {
+      margin-bottom: 0;
+    }
+
+    .entry-year {
+      font-family: var(--f-mono);
+      font-size: 7.5pt;
+      color: var(--accent);
+      padding-top: 1pt;
+      white-space: nowrap;
+    }
+
+    .entry-content {
+      font-size: 9pt;
+      line-height: 1.5;
+    }
+
+    .entry-title {
+      font-style: italic;
+    }
+
+    .entry-venue {
+      color: var(--mid);
+      font-size: 8.5pt;
+    }
+
+    .entry-note {
+      color: var(--mid);
+      font-size: 8pt;
+      font-family: var(--f-mono);
+    }
+
+    /* award / prize marker */
+    .prize {
+      display: inline-block;
+      font-family: var(--f-mono);
+      font-size: 6.5pt;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--ink);
+      padding: 1pt 4pt;
+      margin-left: 5pt;
+      vertical-align: middle;
+      position: relative;
+      top: -1pt;
+    }
+
+    /* ─── EDUCATION: no year column ──────────────────────────── */
+    .entry-edu {
+      margin-bottom: 6pt;
+    }
+
+    .entry-edu:last-child { margin-bottom: 0; }
+
+    .entry-edu .edu-degree {
+      font-size: 9pt;
+      font-weight: 500;
+    }
+
+    .entry-edu .edu-detail {
+      font-size: 8.5pt;
+      color: var(--mid);
+      font-family: var(--f-mono);
+    }
+
+    /* ─── SKILLS GRID ─────────────────────────────────────────── */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4pt 12pt;
+    }
+
+    .skill-tag {
+      font-size: 8.5pt;
+      color: var(--mid);
+    }
+
+    .skill-tag::before {
+      content: '—';
+      margin-right: 4pt;
+      color: var(--accent);
+    }
+
+    /* ─── DIVIDER BETWEEN SECTIONS ───────────────────────────── */
+    .sec-divider {
+      grid-column: 3;
+      height: 0.5pt;
+      background: var(--rule);
+      margin-bottom: 14pt;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────────────── */
+    .cv-footer {
+      margin-top: 14pt;
+      padding-top: 8pt;
+      border-top: 0.5pt solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--f-mono);
+      font-size: 7pt;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ─── PRINT ───────────────────────────────────────────────── */
+    @media print {
+      html { background: var(--bg); }
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        padding: 18mm 16mm 18mm 16mm;
+        page-break-after: always;
+      }
+      @page {
+        size: A4;
+        margin: 0;
+      }
+    }
+
+    @media screen {
+      body { padding: 20px 0 40px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══════════════ HEADER ══════════════ -->
+  <header class="cv-header">
+    <div>
+      <div class="cv-name">Nicolás Gamba</div>
+      <div class="cv-discipline">Artista en medios expandidos &nbsp;·&nbsp; Gestor cultural &nbsp;·&nbsp; Realizador audiovisual</div>
+    </div>
+    <div class="cv-contact">
+      Bogotá, Colombia<br />
+      nicolasgamba63@gmail.com<br />
+      +57 301 263 6284<br />
+      @ni_codemus
+    </div>
+  </header>
+
+  <!-- ══════════════ STATEMENT ══════════════ -->
+  <p class="statement">
+    Artista colombiano en medios expandidos. Su trabajo se enfoca en la creación de proyectos interdisciplinares e interculturales que atraviesan los nuevos medios, las artes vivas, la gestión cultural, la realización audiovisual y las nuevas tecnologías. Su interés se articula alrededor del concepto de lenguaje a nivel epistemológico y ontológico, abordando preguntas sobre el diálogo intercultural y explorando cómo las distintas formas de conocer el mundo —lo ancestral y lo contemporáneo, lo espiritual y lo científico, lo urbano y lo territorial— pueden encontrarse, tensionarse y generar nuevos tejidos de sentido. Como gestor cultural, cuenta con experiencia dirigiendo procesos de creación colectiva y metodologías comunitarias que usan el arte como un vehículo para la transformación social.
+  </p>
+
+  <!-- ══════════════ EDUCACIÓN ══════════════ -->
+  <div class="section">
+    <div class="sec-label">Educación</div>
+    <div class="sec-rule"></div>
+    <div class="sec-body">
+
+      <div class="entry-edu">
+        <div class="edu-degree">Maestro en Arte — Medios Electrónicos y Artes del Tiempo</div>
+        <div class="edu-detail">Universidad de los Andes &nbsp;·&nbsp; Bogotá &nbsp;·&nbsp; 2014–2018</div>
+      </div>
+
+      <div class="entry-edu">
+        <div class="edu-degree">Opción en Cine, Video y Animación</div>
+        <div class="edu-detail">Universidad de los Andes &nbsp;·&nbsp; Bogotá &nbsp;·&nbsp; 2016–2018</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════ EXPOSICIONES INDIVIDUALES ══════════════ -->
+  <div class="section">
+    <div class="sec-label">Exposiciones<br/>Individuales</div>
+    <div class="sec-rule"></div>
+    <div class="sec-body">
+
+      <div class="entry">
+        <div class="entry-year">2025</div>
+        <div class="entry-content">
+          <span class="entry-title">Muerte Viva</span>
+          <br/><span class="entry-venue">Mont, Barcelona</span>
+          <br/><span class="entry-note">Instalación multimedia y dibujo · Colaboración con El Nudo</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2019</div>
+        <div class="entry-content">
+          <span class="entry-title">Máscara</span>
+          <br/><span class="entry-venue">Museo de Arte Contemporáneo de Bogotá (MAC) · Bogotá</span>
+          <br/><span class="entry-note">Cortometraje · Videoarte · 19'25"</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════ EXPOSICIONES COLECTIVAS ══════════════ -->
+  <div class="section">
+    <div class="sec-label">Exposiciones<br/>Colectivas</div>
+    <div class="sec-rule"></div>
+    <div class="sec-body">
+
+      <div class="entry">
+        <div class="entry-year">2025</div>
+        <div class="entry-content">
+          <span class="entry-title">ASCII Sound Experience</span>
+          <br/><span class="entry-venue">Planetario de Bogotá · Bogotá</span>
+          <br/><span class="entry-note">Performance multimedia · Video mapping fulldome · Con Julián Angarita</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2024–25</div>
+        <div class="entry-content">
+          <span class="entry-title">El Abrazo</span>
+          <br/><span class="entry-venue">Ebra Colectivo · Bogotá</span>
+          <br/><span class="entry-note">Encuentro interdisciplinar · 3 ediciones</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2024</div>
+        <div class="entry-content">
+          <span class="entry-title">Inquebrantables — Sinfonía N.º 2, Rachmaninov</span>
+          <br/><span class="entry-venue">Filarmónica Joven de Colombia · Gira nacional (6 ciudades)</span>
+          <br/><span class="entry-note">Instalación multimedia · Video mapping · Colectivo Metanoia</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2024</div>
+        <div class="entry-content">
+          <span class="entry-title">Anómala</span>
+          <br/><span class="entry-venue">Ebra Colectivo · Bogotá</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2024</div>
+        <div class="entry-content">
+          <span class="entry-title">Carnaval Digital</span>
+          <br/><span class="entry-venue">Soul Room · Bogotá</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2023</div>
+        <div class="entry-content">
+          <span class="entry-title">EraSonera: Homenaje a Teto Ocampo</span>
+          <br/><span class="entry-venue">Teatro Colón · CNA Delia Zapata Olivella · Bogotá</span>
+          <br/><span class="entry-note">Visuales generativos reactivos al sonido en tiempo real (TouchDesigner)</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2023</div>
+        <div class="entry-content">
+          <span class="entry-title">Feria del Millón</span>
+          <br/><span class="entry-venue">Bogotá</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2020</div>
+        <div class="entry-content">
+          <span class="entry-title">Confinamiento Expandido</span>
+          <span class="prize">Premio X-PUA</span>
+          <br/><span class="entry-venue">Galería Espacio Alterno · Bogotá</span>
+          <br/><span class="entry-note">Web art · VR · 3D art · Con Julián Angarita, Mario Carrascal, Andrés Sereno</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2018</div>
+        <div class="entry-content">
+          <span class="entry-title">Monolito</span>
+          <span class="prize">2.º lugar</span>
+          <br/><span class="entry-venue">Salón Séneca · Universidad de los Andes · Bogotá</span>
+          <br/><span class="entry-note">Instalación audiovisual · Con J. Angarita, M. Carrascal, S. Vera, P. Andrade</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════ PREMIOS ══════════════ -->
+  <div class="section">
+    <div class="sec-label">Premios y<br/>Distinciones</div>
+    <div class="sec-rule"></div>
+    <div class="sec-body">
+
+      <div class="entry">
+        <div class="entry-year">2020</div>
+        <div class="entry-content">
+          Premio X-PUA
+          <br/><span class="entry-venue">Confinamiento Expandido · Galería Espacio Alterno</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2018</div>
+        <div class="entry-content">
+          Tesis Meritoria
+          <br/><span class="entry-venue">Máscara · Universidad de los Andes</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2018</div>
+        <div class="entry-content">
+          Premio Otto de Greiff
+          <br/><span class="entry-venue">Máscara · Universidad de los Andes</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2018</div>
+        <div class="entry-content">
+          2.º lugar — Salón Séneca
+          <br/><span class="entry-venue">Monolito · Universidad de los Andes</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════ EXPERIENCIA ══════════════ -->
+  <div class="section">
+    <div class="sec-label">Experiencia<br/>Profesional</div>
+    <div class="sec-rule"></div>
+    <div class="sec-body">
+
+      <div class="entry">
+        <div class="entry-year">2024–25</div>
+        <div class="entry-content">
+          Artista Visual y Modelador 3D
+          <br/><span class="entry-venue">Mundos Digitales · IDARTES · Bogotá</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2023–</div>
+        <div class="entry-content">
+          Co-fundador y Director Creativo
+          <br/><span class="entry-venue">Colectivo Ebra · Bogotá</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2021–</div>
+        <div class="entry-content">
+          Investigador y Realizador Audiovisual
+          <br/><span class="entry-venue">SIGIT · Facultad de Medicina · Universidad de los Andes · Bogotá</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2026</div>
+        <div class="entry-content">
+          VJ — Live set
+          <br/><span class="entry-venue">Zarigüeya · Festival Estéreo Picnic</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2026</div>
+        <div class="entry-content">
+          VJ — Live set
+          <br/><span class="entry-venue">Juana Aguirre y Briela Ojeda · Bogotá</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2024</div>
+        <div class="entry-content">
+          VJ y Artista Visual
+          <br/><span class="entry-venue">Filarmónica Joven de Colombia · Colectivo Metanoia</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2024</div>
+        <div class="entry-content">
+          VJ — Live set
+          <br/><span class="entry-venue">Thaissa · Lanzamiento <em>Los Tres Golpes de El Calvo</em> · Teatro Libre, Bogotá</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2018–22</div>
+        <div class="entry-content">
+          Editor Senior y Director Creativo
+          <br/><span class="entry-venue">Portal Media · Bogotá</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-year">2019</div>
+        <div class="entry-content">
+          Editor y Animador
+          <br/><span class="entry-venue">Timbo Studio · Bogotá</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════ HABILIDADES ══════════════ -->
+  <div class="section">
+    <div class="sec-label">Habilidades</div>
+    <div class="sec-rule"></div>
+    <div class="sec-body">
+      <div class="skills-grid">
+        <span class="skill-tag">Dirección creativa</span>
+        <span class="skill-tag">Gestión cultural con enfoque comunitario</span>
+        <span class="skill-tag">Dirección y producción audiovisual</span>
+        <span class="skill-tag">Postproducción</span>
+        <span class="skill-tag">Video mapping</span>
+        <span class="skill-tag">Animación 3D</span>
+        <span class="skill-tag">Diseño generativo</span>
+        <span class="skill-tag">Performance en tiempo real</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ MEDIOS / TÉCNICAS ══════════════ -->
+  <div class="section">
+    <div class="sec-label">Medios y<br/>Técnicas</div>
+    <div class="sec-rule"></div>
+    <div class="sec-body">
+      <div class="skills-grid">
+        <span class="skill-tag">Instalación multimedia</span>
+        <span class="skill-tag">Video mapping</span>
+        <span class="skill-tag">Realidad virtual (VR)</span>
+        <span class="skill-tag">Animación 3D</span>
+        <span class="skill-tag">Video generativo</span>
+        <span class="skill-tag">Performance multimedia</span>
+        <span class="skill-tag">Cortometraje</span>
+        <span class="skill-tag">Videoarte</span>
+        <span class="skill-tag">Fulldome</span>
+        <span class="skill-tag">Fotogrametría</span>
+        <span class="skill-tag">Ilustración digital</span>
+        <span class="skill-tag">Gestión cultural</span>
+        <span class="skill-tag">Curaduría</span>
+        <span class="skill-tag">Investigación artística</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ SOFTWARE ══════════════ -->
+  <div class="section">
+    <div class="sec-label">Software</div>
+    <div class="sec-rule"></div>
+    <div class="sec-body">
+      <div class="skills-grid">
+        <span class="skill-tag">Blender</span>
+        <span class="skill-tag">TouchDesigner</span>
+        <span class="skill-tag">Adobe Premiere Pro</span>
+        <span class="skill-tag">After Effects</span>
+        <span class="skill-tag">Photoshop</span>
+        <span class="skill-tag">Affinity</span>
+        <span class="skill-tag">Sketchbook</span>
+        <span class="skill-tag">Claude Code · Antigravity</span>
+        <span class="skill-tag">IA generativa — imagen, video y audio</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ IDIOMAS ══════════════ -->
+  <div class="section">
+    <div class="sec-label">Idiomas</div>
+    <div class="sec-rule"></div>
+    <div class="sec-body">
+      <div class="skills-grid">
+        <span class="skill-tag">Español (nativo)</span>
+        <span class="skill-tag">Inglés (avanzado)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer class="cv-footer">
+    <span>Nicolás Gamba &nbsp;·&nbsp; CV Artístico</span>
+    <span>2026</span>
+  </footer>
+
+</div>
+</body>
+</html>

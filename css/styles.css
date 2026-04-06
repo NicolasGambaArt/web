@@ -307,12 +307,12 @@ a { text-decoration: none; color: inherit; }
 .layout-square.obra-flotante { max-width: 440px; }
 .layout-square .obra-info {
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 32px;
-  text-align: center;
+  text-align: left;
 }
 .layout-square .obra-info-inner {
-  text-align: center;
+  text-align: left;
 }
 
 /* Portrait (Vertical) */
@@ -348,7 +348,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .obra-info-inner {
-  text-align: center;
+  text-align: left;
 }
 
 /* Título = Stitch: font-headline text-2xl uppercase mb-2 leading-tight */
@@ -635,7 +635,7 @@ body.modal-open {
 
 /* ─── GALERÍA DE MINIATURAS ───────────────────────────────── */
 #modal-gallery {
-  border-top: 1px solid rgba(17, 17, 17, 0.1);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.1);
   padding: 60px;
   max-width: 1200px;
   margin: 0 auto;
@@ -1050,12 +1050,16 @@ body.page-proyectos #footer {
     opacity: 0.85;
   }
 
-  /* Descripción completa, sin truncar */
+  /* Descripción completa, sin truncar -> Truncada a 4 líneas en mobile */
   .obra-info .info-desc {
     font-size: 0.6rem;
     line-height: 1.55;
     max-width: 100%;
     margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   /* Durante drag, no mostrar overlay aunque haya touch-active */
@@ -1100,7 +1104,7 @@ body.page-proyectos #footer {
     transform: none !important;
     width: 100%;
     max-width: 100%;
-    padding: 72px 24px 44px;
+    padding: 72px 24px 80px;
     cursor: default;
     text-align: left;
     /* gradiente que se mezcla con el fondo oscuro */

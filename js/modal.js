@@ -737,7 +737,7 @@ La pieza se completa con un componente sonoro de carácter intuitivo. La música
   },
 
   'obra-thaissa': {
-    titulo: 'Thaissa — Concierto de lanzamiento Los tres golpes de El Kalbo ',
+    titulo: 'Thaissa — Concierto de lanzamiento Los tres golpes de El Kalvo ',
     subtitulo: null,
     colectivo: 'Nicolás Gamba & Julián Angarita',
     imagen: 'imagenes/home/main/ThaissaKalvo_main.webp',
@@ -1009,6 +1009,10 @@ function crearModal() {
         </div>
       </section>
 
+      <div id="modal-gallery">
+        <div id="modal-thumbs"></div>
+      </div>
+
       <div id="modal-body">
         <div id="modal-left">
           <p id="modal-colectivo"></p>
@@ -1026,10 +1030,6 @@ function crearModal() {
           <h3 class="modal-ficha-heading">Ficha Técnica</h3>
           <dl id="modal-ficha"></dl>
         </aside>
-      </div>
-
-      <div id="modal-gallery">
-        <div id="modal-thumbs"></div>
       </div>
 
     </div>
@@ -1135,7 +1135,7 @@ function abrirModal(obraId) {
       btn.className   = 'modal-thumb' + (i === 0 ? ' active' : '');
       btn.setAttribute('aria-label', 'Ver imagen ' + (i + 1));
       const imgEl     = document.createElement('img');
-      imgEl.src       = img.src;
+      imgEl.src       = (img.tipo === 'video' || img.src.endsWith('.mp4')) ? img.src.replace('.mp4', '_thumb.webp') : img.src;
       imgEl.alt       = '';
       btn.appendChild(imgEl);
       btn.addEventListener('click', function () { updateGallery(i); });
