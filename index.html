@@ -435,27 +435,63 @@
 <script>
   /* Posicionamiento aleatorio de las obras flotantes en Home.
      Se ejecuta tras cargar los scripts para no interferir con drag.js.
-     Preserva el max-width de cada carta y usa sólo top/left
-     para evitar conflictos con right/bottom. */
+     En mobile (≤768px) usa tamaños FIJOS por tarjeta ajustados al texto.
+     En desktop usa el max-width original del HTML.
+     Las posiciones siempre son aleatorias. */
   (function () {
     var cards = document.querySelectorAll('#canvas .obra-flotante');
-    var cols  = 5;   // divisiones horizontales aproximadas
-    var rows  = 4;   // divisiones verticales aproximadas
+    var isMobile = window.innerWidth <= 768;
+
+    /* Mapa de tamaños fijos para mobile — cada valor está calibrado
+       al volumen de texto (título + meta + descripción) de esa obra */
+    var mobileWidths = {
+      'obra-inquebrantables':  '250px',
+      'obra-ascii':            '240px',
+      'obra-zarigueya':        '250px',
+      'obra-muerte-viva':      '260px',
+      'obra-pimpina':          '230px',
+      'obra-sigit':            '240px',
+      'obra-monolito':         '230px',
+      'obra-severo':           '230px',
+      'obra-ebra':             '260px',
+      'obra-abrazo':           '230px',
+      'obra-el-nudo':          '260px',
+      'obra-era-sonera':       '250px',
+      'obra-mundos-digitales': '260px',
+      'obra-mascara':          '250px',
+      'obra-canal':            '210px',
+      'obra-homun':            '240px',
+      'obra-confinamiento':    '240px',
+      'obra-espiritu-balanta':  '250px',
+      'obra-zihita':           '240px',
+      'obra-jacana':           '190px',
+      'obra-juana-briela':     '190px',
+      'obra-soul-room':        '190px',
+      'obra-thaissa':          '230px'
+    };
+
+    var cols  = 5;
+    var rows  = 4;
     var slots = [];
     for (var r = 0; r < rows; r++) {
       for (var c = 0; c < cols; c++) {
         slots.push({ r: r, c: c });
       }
     }
-    /* Barajar slots (Fisher-Yates) */
+    /* Barajar slots (Fisher-Yates) — solo aleatoriza posiciones */
     for (var i = slots.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
       var tmp = slots[i]; slots[i] = slots[j]; slots[j] = tmp;
     }
     cards.forEach(function (card, idx) {
-      var maxW = card.style.maxWidth || '400px';
+      /* Tamaño: en mobile usa el mapa fijo, en desktop el valor del HTML */
+      var maxW;
+      if (isMobile && mobileWidths[card.id]) {
+        maxW = mobileWidths[card.id];
+      } else {
+        maxW = card.style.maxWidth || '400px';
+      }
       var slot = slots[idx % slots.length];
-      /* Dentro de cada celda, añadir un jitter aleatorio */
       var topPct  = (slot.r / rows) * 72 + Math.random() * 14 + 2;
       var leftPct = (slot.c / cols) * 80 + Math.random() * 10 + 2;
       card.style.cssText = 'max-width:' + maxW + '; top:' + topPct.toFixed(1) + '%; left:' + leftPct.toFixed(1) + '%;';
