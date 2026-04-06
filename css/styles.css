@@ -299,6 +299,7 @@ a { text-decoration: none; color: inherit; }
   transition: opacity 0.3s ease;
   pointer-events: none;
   color: var(--white);
+  overflow-y: auto;
 }
 
 /* ─── HOVER TEXT LAYOUTS (DIAGRAMACIÓN DINÁMICA) ───────────── */
@@ -994,11 +995,11 @@ body.page-proyectos #footer {
   #obra-inquebrantables  { width: 250px !important; }
   #obra-ascii            { width: 240px !important; }
   #obra-zarigueya        { width: 250px !important; }
-  #obra-muerte-viva      { width: 260px !important; }
-  #obra-pimpina          { width: 230px !important; }
+  #obra-muerte-viva      { width: 225px !important; }
+  #obra-pimpina          { width: 200px !important; }
   #obra-sigit            { width: 240px !important; }
   #obra-monolito         { width: 230px !important; }
-  #obra-severo           { width: 230px !important; }
+  #obra-severo           { width: 205px !important; }
   #obra-ebra             { width: 260px !important; }
   #obra-abrazo           { width: 230px !important; }
   #obra-el-nudo          { width: 260px !important; }
@@ -1008,8 +1009,8 @@ body.page-proyectos #footer {
   #obra-canal            { width: 210px !important; }
   #obra-homun            { width: 240px !important; }
   #obra-confinamiento    { width: 240px !important; }
-  #obra-espiritu-balanta { width: 250px !important; }
-  #obra-zihita           { width: 240px !important; }
+  #obra-espiritu-balanta { width: 215px !important; }
+  #obra-zihita           { width: 210px !important; }
   #obra-jacana           { width: 190px !important; }
   #obra-juana-briela     { width: 190px !important; }
   #obra-soul-room        { width: 190px !important; }
