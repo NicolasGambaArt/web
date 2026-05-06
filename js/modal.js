@@ -16,14 +16,14 @@ const PROYECTOS = {
     tipo: 'img',
     imagenes: [
       { src: 'imagenes/home/main/Inquebrantables_main.webp',              tipo: 'img' },
-      { src: 'imagenes/proyectos/inquebrantables/_DSF5530.webp',          tipo: 'img' },
-      { src: 'imagenes/proyectos/inquebrantables/_DSF5544.webp',          tipo: 'img' },
-      { src: 'imagenes/proyectos/inquebrantables/_DSF5547.webp',          tipo: 'img' },
-      { src: 'imagenes/proyectos/inquebrantables/_DSF5671.webp',          tipo: 'img' },
-      { src: 'imagenes/proyectos/inquebrantables/_DSF5842-Enhanced-NR.webp', tipo: 'img' },
-      { src: 'imagenes/proyectos/inquebrantables/_DSF5847.webp',          tipo: 'img' },
-      { src: 'imagenes/proyectos/inquebrantables/_DSF5875.webp',          tipo: 'img' },
-      { src: 'imagenes/proyectos/inquebrantables/_DSF5982.webp',          tipo: 'img' },
+      { src: 'imagenes/proyectos/inquebrantables/DSF5530.webp',          tipo: 'img' },
+      { src: 'imagenes/proyectos/inquebrantables/DSF5544.webp',          tipo: 'img' },
+      { src: 'imagenes/proyectos/inquebrantables/DSF5547.webp',          tipo: 'img' },
+      { src: 'imagenes/proyectos/inquebrantables/DSF5671.webp',          tipo: 'img' },
+      { src: 'imagenes/proyectos/inquebrantables/DSF5842-Enhanced-NR.webp', tipo: 'img' },
+      { src: 'imagenes/proyectos/inquebrantables/DSF5847.webp',          tipo: 'img' },
+      { src: 'imagenes/proyectos/inquebrantables/DSF5875.webp',          tipo: 'img' },
+      { src: 'imagenes/proyectos/inquebrantables/DSF5982.webp',          tipo: 'img' },
     ],
     ficha: [
       [
